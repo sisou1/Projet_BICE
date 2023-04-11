@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace BICE.DTO
 {
-    internal class Materiel
+    public class Materiel
     {
+        public int Id { get; set; }
+        public string Stock { get; set; }
+        public int UtilisationMax { get; set; }
+        public DateTime DateControle { get; set; }
+        public DateTime DateExpiration { get; set; }
+        public bool estStocke { get; set; }
+        public int id_vehicule { get; set; }
+
     }
 }

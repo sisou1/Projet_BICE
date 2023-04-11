@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace BICE.DTO
 {
-    internal class Intervention
+    public class Intervention
     {
+        public int Id { get; set; }
+        public DateTime Date { get; set; }
+        public string Description { get; set; }
+
+        public string Denomination { get; set; }
     }
 }
