@@ -9,6 +9,7 @@ namespace BICE.DTO
     public class Materiel
     {
         public int Id { get; set; }
+        public string Denomination { get; set; }
         public string Stock { get; set; }
         public int UtilisationMax { get; set; }
         public DateTime DateControle { get; set; }
