@@ -15,7 +15,5 @@ namespace BICE.DTO
         public DateTime DateControle { get; set; }
         public DateTime DateExpiration { get; set; }
         public bool estStocke { get; set; }
-        public int id_vehicule { get; set; }
-
     }
 }
