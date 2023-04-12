@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,5 +27,27 @@ namespace Projet_BICE.WPF
         {
             InitializeComponent();
         }
+
+        private void UploadButton_Add_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+            bool? result = openFileDialog.ShowDialog();
+
+            if (result == true)
+            {
+                using (StreamReader reader = new StreamReader(openFileDialog.FileName))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        var line = reader.ReadLine();
+                        Trace.WriteLine(line);
+
+                    }
+
+                }
+
+            }
+        }
+
     }
 }
