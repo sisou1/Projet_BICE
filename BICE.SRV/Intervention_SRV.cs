@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BICE.SRV
 {
-    internal class Intervention
+    internal class Intervention_SRV
     {
     }
 }

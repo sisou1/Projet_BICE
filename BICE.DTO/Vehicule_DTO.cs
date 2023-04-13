@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace BICE.DTO
 {
-    internal class Vehicule
+    public class Vehicule_DTO
     {
         public int Id { get; set; }
         public string Immatriculation { get; set; }
-        public string denomination { get; set; }
+        public string Denomination { get; set; }
         public string Numero { get; set; }
+        public bool EstActive { get; set; }
     }
 }
