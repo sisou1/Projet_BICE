@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BICE.DTO\BICE.DTO.csproj" />
+    <ProjectReference Include="..\BLL\BICE.BLL.csproj" />
+    <ProjectReference Include="..\materiel.DAL\BICE.DAL.csproj" />
+  </ItemGroup>
+
 </Project>
