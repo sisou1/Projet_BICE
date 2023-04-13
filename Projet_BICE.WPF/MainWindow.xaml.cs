@@ -1,7 +1,9 @@
-﻿using System;
+﻿using BICE.DTO;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
 
@@ -21,7 +23,7 @@ namespace Projet_BICE.WPF
         {
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
             bool? result = openFileDialog.ShowDialog();
-            var list = new List<String>();
+            var list = new List<Materiel_DTO>();
 
             if (result == true)
             {
@@ -31,17 +33,26 @@ namespace Projet_BICE.WPF
                     {
                         var line = reader.ReadLine();
                         var data = line.Split(';');
-                        foreach (var item in data)
-                        {
-                            list.Add(item);
-                        }
+                        var dto = new Materiel_DTO()
+                           {
+                                Id = int.Parse(data[0]),
+                                Denomination = data[1],
+                                Type = data[2],
+                                Utilisation = int.Parse(data[3]),
+                                UtilisationMax = String.IsNullOrEmpty(data[4]) ? null : int.Parse(data[4]),
+                                DateControle = data[5] == "" ? null : DateTime.Parse(data[5]),
+                                DateExpiration = data[6] == "" ? null : DateTime.Parse(data[6]),
+                                Stock = "Caserne",
+                                EstStocke = true,
+                                EstActive = true
+                            };   
 
+                        
+                        list.Add(dto);
+                        Trace.WriteLine(dto.Denomination);
                     }
-                    foreach (var item in list)
-                    {
-                        Trace.WriteLine(item);
-                    }
-     
+
+
 
                 }
 
