@@ -1,20 +1,9 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Projet_BICE.WPF
 {
@@ -32,6 +21,7 @@ namespace Projet_BICE.WPF
         {
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
             bool? result = openFileDialog.ShowDialog();
+            var list = new List<String>();
 
             if (result == true)
             {
@@ -40,9 +30,18 @@ namespace Projet_BICE.WPF
                     while (!reader.EndOfStream)
                     {
                         var line = reader.ReadLine();
-                        Trace.WriteLine(line);
+                        var data = line.Split(';');
+                        foreach (var item in data)
+                        {
+                            list.Add(item);
+                        }
 
                     }
+                    foreach (var item in list)
+                    {
+                        Trace.WriteLine(item);
+                    }
+     
 
                 }
 
