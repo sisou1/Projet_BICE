@@ -11,7 +11,8 @@ namespace BICE.DTO
         public int Id { get; set; }
         public string Denomination { get; set; }
         public string Stock { get; set; }
-        public int UtilisationMax { get; set; }
+        public int nbrUtilisation { get; set; }
+        public int nbrUtilisationMax { get; set; }
         public DateTime DateControle { get; set; }
         public DateTime DateExpiration { get; set; }
         public bool estStocke { get; set; }
