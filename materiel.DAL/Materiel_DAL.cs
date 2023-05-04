@@ -17,7 +17,7 @@ namespace BICE.DAL
         public string Denomination { get; set; }
         public bool EstActive { get; set; }
         public int Utilisation { get; set; }
-        public string Type { get; set; }
+        public string Categorie { get; set; }
         
 
     }
