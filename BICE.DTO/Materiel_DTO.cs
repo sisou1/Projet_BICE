@@ -10,6 +10,7 @@ namespace BICE.DTO
     {
         public int Id { get; set; }
         public string Denomination { get; set; }
+        public string Type { get; set; }
         public string Stock { get; set; }
         public int Utilisation { get; set; }
         public int? UtilisationMax { get; set; }

@@ -40,6 +40,7 @@ namespace BICE.DAL
             }
         }
         public abstract void Delete(Type_DAL p);
+        public abstract IEnumerable<Type_DAL> GetAll();
 
         public abstract Type_DAL GetById(int id);
 
