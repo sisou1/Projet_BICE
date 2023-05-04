@@ -37,7 +37,7 @@ namespace Projet_BICE.WPF
                            {
                                 Id = int.Parse(data[0]),
                                 Denomination = data[1],
-                                Type = data[2],
+                                Categorie = data[2],
                                 Utilisation = int.Parse(data[3]),
                                 UtilisationMax = String.IsNullOrEmpty(data[4]) ? null : int.Parse(data[4]),
                                 DateControle = data[5] == "" ? null : DateTime.Parse(data[5]),

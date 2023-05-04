@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BICE.DAL
 {
-    interface IDepot_DAL<Type_DAL>
+    public interface IDepot_DAL<Type_DAL>
     {
         public Type_DAL Insert(Type_DAL p);
         public Type_DAL Update(Type_DAL p);

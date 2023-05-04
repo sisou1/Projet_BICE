@@ -18,7 +18,33 @@ namespace BICE.DAL
         public bool EstActive { get; set; }
         public int Utilisation { get; set; }
         public string Categorie { get; set; }
-        
 
+        public Materiel_DAL(int id, int? utilisationMax, DateTime? dateExpiration, DateTime? dateControle, bool estStocke, string stock, string denomination, bool estActive, int utilisation, string categorie) 
+        { 
+            Id = id;
+            Utilisation = utilisation;
+            DateExpiration = dateExpiration;
+            DateControle = dateControle;
+            EstStocke = estStocke;
+            Stock = stock;
+            Denomination = denomination;
+            EstActive = estActive;
+            UtilisationMax = utilisationMax;
+            Categorie = categorie;
+                
+        }
+
+        public Materiel_DAL(int? utilisationMax, DateTime? dateExpiration, DateTime? dateControle, bool estStocke, string stock, string denomination, bool estActive, int utilisation, string categorie)
+        {
+            UtilisationMax = utilisationMax;
+            DateExpiration = dateExpiration;
+            DateControle = dateControle;
+            EstStocke = estStocke;
+            Stock = stock;
+            Denomination = denomination;
+            EstActive = estActive;
+            Utilisation = utilisation;
+            Categorie = categorie;
+        }
     }
 }

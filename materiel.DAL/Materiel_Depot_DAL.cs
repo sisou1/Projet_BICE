@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BICE.DAL
 {
-    internal class Materiel_Depot_DAL : Depot_DAL<Materiel_DAL>
+    public class Materiel_Depot_DAL : Depot_DAL<Materiel_DAL>
     {
         public override void Delete(Materiel_DAL p)
         {
@@ -169,3 +169,4 @@ GO
         }
     }
 }
+
