@@ -19,7 +19,7 @@ namespace Projet_BICE.API.Controllers
         public Materiel_DTO Insert(Materiel_DTO materiel)
         {
             return _gestionMateriel_SRV.Insert(materiel);
-            
+
         }
     }
 }
