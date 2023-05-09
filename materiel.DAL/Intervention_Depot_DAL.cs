@@ -68,8 +68,8 @@ namespace BICE.DAL
         public override Intervention_DAL Insert(Intervention_DAL p)
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"INSERT INTO NomTable (date, denomination, description, autreColonne) " +
-                   "VALUES (@date, @denomination, @description, null); " +
+            Commande.CommandText = @"INSERT INTO Intervention (date, denomination, description) " +
+                   "VALUES (@date, @denomination, @description); " +
                    "SELECT SCOPE_IDENTITY()";
             Commande.Parameters.Add(new SqlParameter("@date", p.Date));
             Commande.Parameters.Add(new SqlParameter("@denomination", p.Denomination));
