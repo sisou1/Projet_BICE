@@ -10,30 +10,27 @@
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontSize="20" FontWeight="Bold" Text="BICE" Margin="10" />
         <TextBlock Text="Matériel " FontSize ="15" VerticalAlignment="Top" Margin="363,42,-353,0" />
         <Button x:Name ="UploadButton" Content="Ajouter" HorizontalAlignment="Left" Margin="200,100,0,0" VerticalAlignment="Top" Click="UploadButton_AddMateriel_Click"/>
-        <Button x:Name ="UploadButtonDel" Content="Supprimer" HorizontalAlignment="Left" Margin="508,100,0,0" VerticalAlignment="Top" Click="UploadButton_DelMateriel_Click"/>
-        <!--<Button x:Name ="UploadButton2" Content="Supprimer" HorizontalAlignment="Left" Margin="525,100,0,0" VerticalAlignment="Top" Click="UploadButton_Del_Click"/>-->
+        <!--<Button x:Name ="UploadButtonDel" Content="Supprimer" HorizontalAlignment="Left" Margin="508,100,0,0" VerticalAlignment="Top" Click="UploadButton_DelMateriel_Click"/>-->
         <TextBlock Text="Véhicule " FontSize ="15" VerticalAlignment="Top" Margin="363,133,-353,0" />
         <TextBlock Text="Ajouter " VerticalAlignment="Top" Margin="131,158,-121,0" />
         <TextBox x:Name="ajoutImmatriculation" VerticalAlignment="Top" Margin="131,179,569,0" Height="18" />
         <TextBox x:Name="ajoutNuméro" VerticalAlignment="Top" Margin="131,202,569,0" Height="18" />
         <TextBox x:Name="ajoutDénomination" VerticalAlignment="Top" Margin="131,225,569,0" Height="18" />
-        <TextBlock Text="Modifier " VerticalAlignment="Top" Margin="372,158,-362,0" />
-        <TextBox x:Name="modifImmatriculation" VerticalAlignment="Top" Margin="350,179,350,0" Height="18" />
-        <TextBox x:Name="modifNuméro" VerticalAlignment="Top" Margin="350,202,350,0" Height="18" />
-        <TextBox x:Name="modifDénomination" VerticalAlignment="Top" Margin="350,225,350,0" Height="18" />
         <TextBlock Text="Supprimer " VerticalAlignment="Top" Margin="614,158,-604,0" />
         <TextBox x:Name="supprImmatriculation" VerticalAlignment="Top" Margin="593,179,107,0" Height="18" />
-        <TextBlock Text="Immatriculation " VerticalAlignment="Top" Margin="33,179,-23,0" />
+        <TextBlock Text="Immatriculation " VerticalAlignment="Top" Margin="10,299,0,0" />
         <TextBlock Text="Numéro " VerticalAlignment="Top" Margin="33,202,-23,0" />
         <TextBlock Text="Dénomination " VerticalAlignment="Top" Margin="33,226,-23,0" />
+        <Button x:Name ="UploadButtonVehicule" Content="OK" HorizontalAlignment="Left" Margin="236,224,0,0" VerticalAlignment="Top" Click="UploadButton_AddVehicule_Click"/>
+        <Button x:Name ="UploadButtonVehiculeDel" Content="OK" HorizontalAlignment="Left" Margin="698,178,0,0" VerticalAlignment="Top" Click="UploadButton_DelVehicule_Click"/>
         <TextBlock Text="Stock Véhicule " FontSize ="15" VerticalAlignment="Top" Margin="10,274,0,0" />
         <TextBlock Text="Retour d'intervention" FontSize ="15" VerticalAlignment="Top" Margin="428,274,-418,0" />
-        <TextBlock Text="Immatriculation " VerticalAlignment="Top" Margin="10,299,0,0" />
+        <TextBlock Text="Immatriculation " VerticalAlignment="Top" Margin="33,181,-23,0" />
         <TextBox x:Name="stockImmatriculation" VerticalAlignment="Top" Margin="103,298,597,0" Height="18" />
-        <Button x:Name ="UploadButtonStock" Content="Upload" HorizontalAlignment="Left" Margin="221,297,0,0" VerticalAlignment="Top" Click="UploadButton_Add_Click"/>
+        <!--<Button x:Name ="UploadButtonStock" Content="Upload" HorizontalAlignment="Left" Margin="221,297,0,0" VerticalAlignment="Top" Click="UploadButton_Add_Click"/>-->
         <TextBlock Text="Immatriculation " VerticalAlignment="Top" Margin="428,300,-418,0" />
         <TextBox x:Name="retourImmatriculation" VerticalAlignment="Top" Margin="517,298,183,0" Height="18" />
-        <Button x:Name ="UploadButtonRetourNU" Content="Matériel non utilisé" HorizontalAlignment="Left" Margin="632,297,0,0" VerticalAlignment="Top" Click="UploadButton_Add_Click"/>
-        <Button x:Name ="UploadButtonRetourU" Content="Matériel utilisé" HorizontalAlignment="Left" Margin="632,322,0,0" VerticalAlignment="Top" Click="UploadButton_Add_Click"/>
+        <!--<Button x:Name ="UploadButtonRetourNU" Content="Matériel non utilisé" HorizontalAlignment="Left" Margin="632,297,0,0" VerticalAlignment="Top" Click="UploadButton_Add_Click"/>-->
+        <!--<Button x:Name ="UploadButtonRetourU" Content="Matériel utilisé" HorizontalAl   ignment="Left" Margin="632,322,0,0" VerticalAlignment="Top" Click="UploadButton_Add_Click"/>-->
     </Grid>
 </Window>
