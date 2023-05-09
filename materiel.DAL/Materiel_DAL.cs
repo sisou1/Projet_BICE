@@ -9,26 +9,42 @@ namespace BICE.DAL
     public class Materiel_DAL
     {
         public int Id { get; set; }
-        public string Denomination { get; set; }
-        public string Stock { get; set; }
-        public int Utilisation { get; set; }
         public int? UtilisationMax { get; set; }
-        public DateTime? DateControle { get; set; }
         public DateTime? DateExpiration { get; set; }
+        public DateTime? DateControle { get; set; }
         public bool EstStocke { get; set; }
+        public string Stock { get; set; }
+        public string Denomination { get; set; }
         public bool EstActive { get; set; }
+        public int Utilisation { get; set; }
+        public string Categorie { get; set; }
 
-        public Materiel_DAL(int id, string denomination, string stock, int utilisation, int? utilisationMax, DateTime? dateControle, DateTime? dateExpiration, bool estStocke, bool estActive)
-        {
+        public Materiel_DAL(int id, int? utilisationMax, DateTime? dateExpiration, DateTime? dateControle, bool estStocke, string stock, string denomination, bool estActive, int utilisation, string categorie) 
+        { 
             Id = id;
-            Denomination = denomination;
-            Stock = stock;
             Utilisation = utilisation;
-            UtilisationMax = utilisationMax;
-            DateControle = dateControle;
             DateExpiration = dateExpiration;
+            DateControle = dateControle;
             EstStocke = estStocke;
+            Stock = stock;
+            Denomination = denomination;
             EstActive = estActive;
+            UtilisationMax = utilisationMax;
+            Categorie = categorie;
+                
+        }
+
+        public Materiel_DAL(int? utilisationMax, DateTime? dateExpiration, DateTime? dateControle, bool estStocke, string stock, string denomination, bool estActive, int utilisation, string categorie)
+        {
+            UtilisationMax = utilisationMax;
+            DateExpiration = dateExpiration;
+            DateControle = dateControle;
+            EstStocke = estStocke;
+            Stock = stock;
+            Denomination = denomination;
+            EstActive = estActive;
+            Utilisation = utilisation;
+            Categorie = categorie;
         }
     }
 }
