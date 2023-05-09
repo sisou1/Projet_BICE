@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BICE.DAL
 {
-    internal class Intervention_Depot_DAL : Depot_DAL<Intervention_DAL>
+    public class Intervention_Depot_DAL : Depot_DAL<Intervention_DAL>
     {
         public override void Delete(Intervention_DAL p)
         {

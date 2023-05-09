@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BICE.BLL;
 using BICE.DAL;
 using BICE.DTO;
 
@@ -54,9 +55,30 @@ namespace BICE.SRV
             };
         }
 
-        public void GererMateriel(List<Materiel_DTO> materiels)
+        public Materiel_DTO Update(Materiel_DTO materiel)
         {
-            throw new NotImplementedException();
+            var materiel_DAL = new Materiel_DAL(
+            materiel.Id,
+                materiel.UtilisationMax,
+                materiel.DateExpiration,
+                materiel.DateControle,
+                materiel.EstStocke,
+                materiel.Stock,
+                materiel.Denomination,
+                materiel.EstActive,
+                materiel.Utilisation,
+                materiel.Categorie
+                );
+            depot_materiel.Update(materiel_DAL);
+
+            return materiel;
+        }
+
+        public List<Materiel_DTO> GetAll()
+        {
+            var Materiel_DAL = depot_materiel.GetAll();
+
+            return Materiel_DAL;
         }
     }
 }
