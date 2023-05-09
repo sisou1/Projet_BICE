@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -13,13 +14,9 @@ namespace BICE.DAL
         {
             InitialiserLaConnexionEtLaCommande();
 
-            Commande.CommandText = @"USE [Projet_BICE]
-GO
-
-DELETE FROM [dbo].[Materiel]
+            Commande.CommandText = @"DELETE FROM [dbo].[Materiel]
      WHERE
            (id = @id);
-GO
 
 ";
             Commande.Parameters.Add(new SqlParameter("@id", p.Id));
@@ -30,9 +27,7 @@ GO
         public override Materiel_DAL Update(Materiel_DAL p)
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"USE [Projet_BICE]
-GO
-
+            Commande.CommandText = @"
 UPDATE [dbo].[Materiel]([utilisationMax] = @utilisationMax
            ,[dateExpiration] = @dateExpiration
            ,[dateControle] = @dateControle
@@ -44,8 +39,6 @@ UPDATE [dbo].[Materiel]([utilisationMax] = @utilisationMax
             ,[categorie] = @categorie
      WHERE
            (id = @id);
-GO
-
 ";
             Commande.Parameters.Add(new SqlParameter("@id", p.Id));
             Commande.Parameters.Add(new SqlParameter("@utilisationMax", p.UtilisationMax));
@@ -96,37 +89,12 @@ GO
         public override Materiel_DAL Insert(Materiel_DAL p)
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"USE [Projet_BICE]
-GO
-
-UPDATE [dbo].[Materiel]([id]
-            ,[utilisationMax]
-           ,[dateExpiration]
-           ,[dateControle]
-            ,[estStocke]
-            ,[stock]
-            ,[denomination]
-            ,[estActive ]
-            ,[utilisation]
-            ,[categorie]
-        VALUES
-            (@id
-            ,@utilisationMax
-            ,@dateExpiration
-            ,@dateControle
-            ,@estStocke
-            ,@stock
-            ,@denomination
-            ,@estActive
-            ,@utilisation
-            ,@categorie
-GO
-
-";
+            Commande.CommandText = @"INSERT INTO [dbo].[Materiel](id, utilisationMax, dateExpiration, dateControle, estStocke, stock, denomination, estActive, utilisation, categorie) " +
+                   "VALUES (@id, @utilisationMax, @dateExpiration, @dateControle, @estStocke, @stock, @denomination, @estActive, @utilisation, @categorie); select scope_identity()"; ;
             Commande.Parameters.Add(new SqlParameter("@id", p.Id));
-            Commande.Parameters.Add(new SqlParameter("@utilisationMax", p.UtilisationMax));
-            Commande.Parameters.Add(new SqlParameter("@dateExpiration", p.DateExpiration));
-            Commande.Parameters.Add(new SqlParameter("@dateControle", p.DateControle));
+            Commande.Parameters.Add(new SqlParameter("@utilisationMax", p.UtilisationMax??(object)DBNull.Value));
+            Commande.Parameters.Add(new SqlParameter("@dateExpiration", p.DateExpiration ?? (object)DBNull.Value));
+            Commande.Parameters.Add(new SqlParameter("@dateControle", p.DateControle ?? (object)DBNull.Value));
             Commande.Parameters.Add(new SqlParameter("@estStocke", p.EstStocke));
             Commande.Parameters.Add(new SqlParameter("@stock", p.Stock));
             Commande.Parameters.Add(new SqlParameter("@denomination", p.Denomination));
@@ -143,7 +111,7 @@ GO
         public override IEnumerable<Materiel_DAL> GetAll()
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"SELECT id,date,denomination,description FROM [dbo].[Materiel] WHERE id=@id";
+            Commande.CommandText = @"SELECT * FROM [dbo].[Materiel] WHERE id=@id";
 
             var reader = Commande.ExecuteReader();
 

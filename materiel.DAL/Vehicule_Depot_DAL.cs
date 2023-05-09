@@ -7,106 +7,115 @@ using System.Threading.Tasks;
 
 namespace BICE.DAL
 {
-    internal class Intervention_Depot_DAL : Depot_DAL<Intervention_DAL>
+    internal class Vehicule_Depot_DAL : Depot_DAL<Vehicule_DAL>
     {
-        public override void Delete(Intervention_DAL p)
+        public override void Delete(Vehicule_DAL p)
         {
             InitialiserLaConnexionEtLaCommande();
 
-            Commande.CommandText = @"DELETE FROM [dbo].[Intervention]
+            Commande.CommandText = @"DELETE FROM [dbo].[Vehicule]
      WHERE
            (id = @id);
+GO
+
 ";
             Commande.Parameters.Add(new SqlParameter("@id", p.Id));
             Commande.ExecuteNonQuery();
 
             FermerEtDisposerLaConnexionEtLaCommande();
         }
-        public override Intervention_DAL Update(Intervention_DAL p)
+        public override Vehicule_DAL Update(Vehicule_DAL p)
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"UPDATE [dbo].[Intervention]([denomination] = @denomination
-           ,[date] = @date
-           ,[description] = @description
+            Commande.CommandText = @"UPDATE [dbo].[Vehicule]([immatriculation] = @immatriculation
+           ,[denomination] = @denomination
+           ,[numero] = @numero
+           ,[estActive] = @estActive
      WHERE
            (id = @id);
 ";
             Commande.Parameters.Add(new SqlParameter("@id", p.Id));
-            Commande.Parameters.Add(new SqlParameter("@description", p.Denomination));
-            Commande.Parameters.Add(new SqlParameter("@date", p.Date));
-            Commande.Parameters.Add(new SqlParameter("@id_forme", p.Description));
+            Commande.Parameters.Add(new SqlParameter("@immatriculation", p.Immatriculation));
+            Commande.Parameters.Add(new SqlParameter("@denomination", p.Denomination));
+            Commande.Parameters.Add(new SqlParameter("@numero", p.Numero));
+            Commande.Parameters.Add(new SqlParameter("@estActive", p.EstActive));
 
             Commande.ExecuteNonQuery();
 
             FermerEtDisposerLaConnexionEtLaCommande();
             return p;
         }
-        public override Intervention_DAL GetById(int id)
+        public override Vehicule_DAL GetById(int id)
         {
             InitialiserLaConnexionEtLaCommande();
 
             Commande.CommandText = @"SELECT *
-                                    FROM [dbo].[Intervention]
+                                    FROM [dbo].[Vehicule]
                                      WHERE id=@id";
 
 
             var reader = Commande.ExecuteReader();
 
-            Intervention_DAL p = null;
+            Vehicule_DAL p = null;
             if (reader.Read()) // j'ai trouvé une ligne
             {
-                p = new Intervention_DAL(
+                p = new Vehicule_DAL(
                     reader.GetInt32(0), //id
-                    reader.GetDateTime(1), //Date
+                    reader.GetString(1), //Immatriculation
                     reader.GetString(2), //Denomination
-                    reader.GetSqlString(3).IsNull ? null : reader.GetString(3)); //Description
+                    reader.GetString(3), //Numero
+                    reader.GetBoolean(4)); //EstActive
             }
 
             FermerEtDisposerLaConnexionEtLaCommande();
             return p;
         }
-        public override Intervention_DAL Insert(Intervention_DAL p)
+        public override Vehicule_DAL Insert(Vehicule_DAL p)
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"INSERT INTO [dbo].[Intervention]
+            Commande.CommandText = @"INSERT INTO [dbo].[Vehicule]
            ([id]
-           ,[date]
+           ,[immatriculation]
            ,[denomination]
-           ,[description])
+           ,[numero]
+           ,[estActive])
      VALUES
            (@id
-            ,@date
+            ,@immatriculation
             ,@denomination
-            ,@description
+            ,@numero
+            ,@estActive
             ,null); select scope_identity();
 ";
             Commande.Parameters.Add(new SqlParameter("@id", p.Id));
-            Commande.Parameters.Add(new SqlParameter("@date", p.Date));
+            Commande.Parameters.Add(new SqlParameter("@immatriculation", p.Immatriculation));
             Commande.Parameters.Add(new SqlParameter("@denomination", p.Denomination));
-            Commande.Parameters.Add(new SqlParameter("@description", p.Description));
+            Commande.Parameters.Add(new SqlParameter("@numero", p.Numero));
+            Commande.Parameters.Add(new SqlParameter("@estActive", p.EstActive));
 
             p.Id = Convert.ToInt32((decimal)Commande.ExecuteScalar());
             FermerEtDisposerLaConnexionEtLaCommande();
 
             return p;
         }
-        public override IEnumerable<Intervention_DAL> GetAll()
+        public override IEnumerable<Vehicule_DAL> GetAll()
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"SELECT * FROM [dbo].[Intervention] WHERE id=@id";
+            Commande.CommandText = @"SELECT * FROM [dbo].[Vehicule] WHERE id=@id";
 
             var reader = Commande.ExecuteReader();
 
-            var liste = new List<Intervention_DAL>();
+            var liste = new List<Vehicule_DAL>();
 
             while (reader.Read())
 
             {
-                liste.Add(new Intervention_DAL(
+                liste.Add(new Vehicule_DAL(
                     reader.GetInt32(0), //id
-                    reader.GetDateTime(1), //Date
+                    reader.GetString(1), //Immatriculation
                     reader.GetString(2), //Denomination
-                    reader.GetSqlString(3).IsNull ? null : reader.GetString(3))); //Description
+                    reader.GetString(3), //Numero
+                    reader.GetBoolean(4))); //EstActive
             }
             FermerEtDisposerLaConnexionEtLaCommande();
             return liste;
