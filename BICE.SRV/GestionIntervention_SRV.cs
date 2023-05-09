@@ -10,29 +10,23 @@ namespace BICE.SRV
 {
     public class GestionIntervention_SRV : IGestionIntervention_SRV
     {
-        protected IDepot_DAL<Materiel_DAL> depot_intervention;
-        public GestionIntervention_SRV(IDepot_DAL<Materiel_DAL> depot)
+        protected IDepot_DAL<Intervention_DAL> depot_intervention;
+        public GestionIntervention_SRV(IDepot_DAL<Intervention_DAL> depot)
         {
             this.depot_intervention = depot;
         }
         public GestionIntervention_SRV() : this(new Intervention_Depot_DAL()) { }
-        public Materiel_DTO Insert(Materiel_DTO materiel)
+        public Intervention_DTO Insert(Intervention_DTO intervention)
         {
-            var materiel_DAL = new Materiel_DAL(
-                materiel.Id,
-                materiel.UtilisationMax,
-                materiel.DateExpiration,
-                materiel.DateControle,
-                materiel.EstStocke,
-                materiel.Stock,
-                materiel.Denomination,
-                materiel.EstActive,
-                materiel.Utilisation,
-                materiel.Categorie
+            var intervention_dal = new Intervention_DAL(
+                intervention.Id,
+                intervention.Date,
+                intervention.Denomination,
+                intervention.Description
                 );
-            depot_materiel.Insert(materiel_DAL);
+            depot_intervention.Insert(intervention_dal);
 
-            return materiel;
+            return intervention;
         }
     }
 }

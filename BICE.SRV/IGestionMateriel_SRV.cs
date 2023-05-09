@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace BICE.SRV
 {
-    public class IGestionMateriel_SRV
+    public interface IGestionMateriel_SRV
     {
-        public abstract Materiel_DTO GetById(int id);
-        public abstract Materiel_DTO Insert(Materiel_DTO materiel);
-        public abstract void Delete(Materiel_DTO materiel);
-        public abstract List<Materiel_DTO> GetAll();
-        public abstract Materiel_DTO Update(Materiel_DTO materiel);
+        public  Materiel_DTO GetById(int id);
+        public  Materiel_DTO Insert(Materiel_DTO materiel);
+        public  void Delete(Materiel_DTO materiel);
+        public IEnumerable<Materiel_DTO> GetAll();
+        public  Materiel_DTO Update(Materiel_DTO materiel);
     }
 }

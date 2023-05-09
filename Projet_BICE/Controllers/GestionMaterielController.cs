@@ -5,12 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace Projet_BICE.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class GestionMaterielController
+    public class GestionMaterielControllers
     {
         private readonly GestionMateriel_SRV _gestionMateriel_SRV;
 
-        public GestionMaterielController(GestionMateriel_SRV gestionMateriel_SRV)
+        public GestionMaterielControllers(GestionMateriel_SRV gestionMateriel_SRV)
         {
             _gestionMateriel_SRV = gestionMateriel_SRV;
         }
@@ -33,10 +32,14 @@ namespace Projet_BICE.API.Controllers
         {
             return _gestionMateriel_SRV.GetById(id);
         }
+        [HttpPost]
+        [Route("/MaterielGetAll")]
         public List<Materiel_DTO> GetAll()
         {
-            return _gestionMateriel_SRV.GetAll();
+             return (List<Materiel_DTO>)_gestionMateriel_SRV.GetAll();
         }
+        [HttpPost]
+        [Route("/MaterielDelete")]
         public void Delete(Materiel_DTO materiel)
         {
             _gestionMateriel_SRV.Delete(materiel);

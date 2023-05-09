@@ -9,7 +9,7 @@ using BICE.DTO;
 
 namespace BICE.SRV
 {
-    public class GestionMateriel_SRV
+    public class GestionMateriel_SRV : IGestionMateriel_SRV
     {
         protected IDepot_DAL<Materiel_DAL> depot_materiel;
         public GestionMateriel_SRV(IDepot_DAL<Materiel_DAL> depot)
@@ -74,11 +74,38 @@ namespace BICE.SRV
             return materiel;
         }
 
-        public List<Materiel_DTO> GetAll()
+        public IEnumerable<Materiel_DTO> GetAll()
         {
-            var Materiel_DAL = depot_materiel.GetAll();
-
-            return Materiel_DAL;
+            //retourne une liste de materiel DTO
+            return depot_materiel.GetAll().Select(materiel_DAL => new Materiel_DTO()
+            {
+                Id = materiel_DAL.Id,
+                UtilisationMax = materiel_DAL.UtilisationMax,
+                DateExpiration = materiel_DAL.DateExpiration,
+                DateControle = materiel_DAL.DateControle,
+                EstStocke = materiel_DAL.EstStocke,
+                Stock = materiel_DAL.Stock,
+                Denomination = materiel_DAL.Denomination,
+                EstActive = materiel_DAL.EstActive,
+                Utilisation = materiel_DAL.Utilisation,
+                Categorie = materiel_DAL.Categorie,
+            });
+        }
+        public void Delete(Materiel_DTO materiel)
+        {
+            var materiel_DAL = new Materiel_DAL(
+            materiel.Id,
+                materiel.UtilisationMax,
+                materiel.DateExpiration,
+                materiel.DateControle,
+                materiel.EstStocke,
+                materiel.Stock,
+                materiel.Denomination,
+                materiel.EstActive,
+                materiel.Utilisation,
+                materiel.Categorie
+                );
+           depot_materiel.Delete(materiel_DAL);
         }
     }
 }
