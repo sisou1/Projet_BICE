@@ -73,21 +73,9 @@ GO
         public override Vehicule_DAL Insert(Vehicule_DAL p)
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"INSERT INTO [dbo].[Vehicule]
-           ([id]
-           ,[immatriculation]
-           ,[denomination]
-           ,[numero]
-           ,[estActive])
-     VALUES
-           (@id
-            ,@immatriculation
-            ,@denomination
-            ,@numero
-            ,@estActive
-            ,null); select scope_identity();
-";
-            Commande.Parameters.Add(new SqlParameter("@id", p.Id));
+            Commande.CommandText = @"INSERT INTO NomTable (immatriculation, denomination, numero, estActive, autreColonne) " +
+                   "VALUES (@immatriculation, @denomination, @numero, @estActive, null); " +
+                   "SELECT SCOPE_IDENTITY()";
             Commande.Parameters.Add(new SqlParameter("@immatriculation", p.Immatriculation));
             Commande.Parameters.Add(new SqlParameter("@denomination", p.Denomination));
             Commande.Parameters.Add(new SqlParameter("@numero", p.Numero));
