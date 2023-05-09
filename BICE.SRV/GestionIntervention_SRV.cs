@@ -28,5 +28,29 @@ namespace BICE.SRV
 
             return intervention;
         }
+        public IEnumerable<Intervention_DTO> GetAll()
+        {
+            //retourne une liste de intervention DTO
+            return (IEnumerable<Intervention_DTO>)depot_intervention.GetAll().Select(intervention_DAL => new Intervention_DTO()
+            {
+                Id = intervention_DAL.Id,
+                Date = intervention_DAL.Date,
+                Denomination = intervention_DAL.Denomination,
+                Description = intervention_DAL.Description,
+            });
+        }
+        public Intervention_DTO? GetById(int id)
+        {
+            var intervention_DAL = depot_intervention.GetById(id);
+            if(depot_intervention.GetById(id)== null) { return null; }
+
+            return new Intervention_DTO()
+            {
+                Id = intervention_DAL.Id,
+                Date = intervention_DAL.Date,
+                Denomination = intervention_DAL.Denomination,
+                Description = intervention_DAL.Description,
+            };
+        }
     }
 }

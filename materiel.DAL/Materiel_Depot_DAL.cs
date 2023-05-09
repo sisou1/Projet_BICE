@@ -56,14 +56,16 @@ UPDATE [dbo].[Materiel]([utilisationMax] = @utilisationMax
             FermerEtDisposerLaConnexionEtLaCommande();
             return p;
         }
-        public override Materiel_DAL GetById(int id)
+        public override Materiel_DAL? GetById(int id)
         {
             InitialiserLaConnexionEtLaCommande();
+
 
             Commande.CommandText = @"SELECT *
                                     FROM [dbo].[Materiel]
                                      WHERE id=@id";
 
+            Commande.Parameters.Add(new SqlParameter("@id", id));
 
             var reader = Commande.ExecuteReader();
 

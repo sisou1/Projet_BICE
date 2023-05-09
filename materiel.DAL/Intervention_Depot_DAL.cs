@@ -41,13 +41,15 @@ namespace BICE.DAL
             FermerEtDisposerLaConnexionEtLaCommande();
             return p;
         }
-        public override Intervention_DAL GetById(int id)
+        public override Intervention_DAL? GetById(int id)
         {
             InitialiserLaConnexionEtLaCommande();
 
             Commande.CommandText = @"SELECT *
                                     FROM [dbo].[Intervention]
                                      WHERE id=@id";
+
+            Commande.Parameters.Add(new SqlParameter("@id", id));
 
 
             var reader = Commande.ExecuteReader();
