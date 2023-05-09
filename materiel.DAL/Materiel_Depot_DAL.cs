@@ -143,7 +143,7 @@ GO
         public override IEnumerable<Materiel_DAL> GetAll()
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"SELECT id,date,denomination,description FROM [dbo].[Materiel] WHERE id=@id";
+            Commande.CommandText = @"SELECT * FROM [dbo].[Materiel] WHERE id=@id";
 
             var reader = Commande.ExecuteReader();
 

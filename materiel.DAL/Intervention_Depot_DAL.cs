@@ -108,7 +108,7 @@ GO
         public override IEnumerable<Intervention_DAL> GetAll()
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"SELECT id,date,denomination,description FROM [dbo].[Intervention] WHERE id=@id";
+            Commande.CommandText = @"SELECT * FROM [dbo].[Intervention] WHERE id=@id";
 
             var reader = Commande.ExecuteReader();
 
