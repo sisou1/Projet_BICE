@@ -24,7 +24,7 @@ namespace Projet_BICE.WPF
         {
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
             bool? result = openFileDialog.ShowDialog();
-            var list = new List<Materiel_DTO>();
+            var list = new List<BICE.Client.Materiel_DTO>();
 
             if (result == true)
             {
@@ -34,7 +34,7 @@ namespace Projet_BICE.WPF
                     {
                         var line = reader.ReadLine();
                         var data = line.Split(';');
-                        var dto = new Materiel_DTO()
+                        var dto = new BICE.Client.Materiel_DTO()
                            {
                                 Id = int.Parse(data[0]),
                                 Denomination = data[1],
@@ -50,7 +50,11 @@ namespace Projet_BICE.WPF
 
                         
                         list.Add(dto);
-                        var nouveau = new Client("https://localhost:7238/", new System.Net.Http.HttpClient());
+                        var client = new Client("https://localhost:7238/", new System.Net.Http.HttpClient());
+                        foreach(BICE.Client.Materiel_DTO x in list)
+                        {
+                            client.AjouterMateriel(x);
+                        }
                     }
 
 

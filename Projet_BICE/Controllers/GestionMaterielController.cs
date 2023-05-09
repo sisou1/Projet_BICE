@@ -16,6 +16,7 @@ namespace Projet_BICE.API.Controllers
         }
         
         [HttpPost]
+        [Route("/AjouterMateriel")]
         public Materiel_DTO Insert(Materiel_DTO materiel)
         {
             return _gestionMateriel_SRV.Insert(materiel);
