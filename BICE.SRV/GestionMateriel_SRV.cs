@@ -20,13 +20,14 @@ namespace BICE.SRV
         public Materiel_DTO Insert(Materiel_DTO materiel)
         {
             var materiel_DAL = new Materiel_DAL(
+                materiel.Id,
                 materiel.UtilisationMax,
                 materiel.DateExpiration,
                 materiel.DateControle,
                 materiel.EstStocke,
                 materiel.Stock,
                 materiel.Denomination,
-                materiel.EstActive,
+                materiel.EstActive, 
                 materiel.Utilisation,
                 materiel.Categorie
                 );
@@ -53,6 +54,10 @@ namespace BICE.SRV
             };
         }
 
+        public void GererMateriel(List<Materiel_DTO> materiels)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 //La couche SRV recoit une collection de DTO et la découpe afin de l'envoyer à la couche DAL
