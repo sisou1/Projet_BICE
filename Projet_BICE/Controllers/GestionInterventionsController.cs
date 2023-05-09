@@ -19,5 +19,17 @@ namespace Projet_BICE.API.Controllers
         {
             return _gestionIntervention_SRV.Insert(intervention);
         }
+        [HttpPost]
+        [Route("/InterventionGetById")]
+        public Intervention_DTO GetById(int id)
+        {
+            return _gestionIntervention_SRV.GetById(id);
+        }
+        [HttpPost]
+        [Route("/InterventionGetAll")]
+        public List<Intervention_DTO> GetAll()
+        {
+            return (List<Intervention_DTO>)_gestionIntervention_SRV.GetAll();
+        }
     }
 }

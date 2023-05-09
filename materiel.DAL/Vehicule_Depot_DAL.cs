@@ -45,7 +45,7 @@ GO
             FermerEtDisposerLaConnexionEtLaCommande();
             return p;
         }
-        public override Vehicule_DAL GetById(int id)
+        public override Vehicule_DAL? GetById(int id)
         {
             InitialiserLaConnexionEtLaCommande();
 
@@ -53,6 +53,8 @@ GO
                                     FROM [dbo].[Vehicule]
                                      WHERE id=@id";
 
+
+            Commande.Parameters.Add(new SqlParameter("@id", id));
 
             var reader = Commande.ExecuteReader();
 
