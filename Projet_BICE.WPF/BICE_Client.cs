@@ -62,25 +62,25 @@ namespace BICE.Client
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Materiel_DTO> AjouterMaterielAsync(Materiel_DTO body)
+        public virtual System.Threading.Tasks.Task<Materiel_DTO> MaterielAjouterAsync(Materiel_DTO body)
         {
-            return AjouterMaterielAsync(body, System.Threading.CancellationToken.None);
+            return MaterielAjouterAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual Materiel_DTO AjouterMateriel(Materiel_DTO body)
+        public virtual Materiel_DTO MaterielAjouter(Materiel_DTO body)
         {
-            return System.Threading.Tasks.Task.Run(async () => await AjouterMaterielAsync(body, System.Threading.CancellationToken.None)).GetAwaiter().GetResult();
+            return System.Threading.Tasks.Task.Run(async () => await MaterielAjouterAsync(body, System.Threading.CancellationToken.None)).GetAwaiter().GetResult();
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Materiel_DTO> AjouterMaterielAsync(Materiel_DTO body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Materiel_DTO> MaterielAjouterAsync(Materiel_DTO body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/AjouterMateriel");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/MaterielAjouter");
 
             var client_ = _httpClient;
             var disposeClient_ = false;

@@ -20,12 +20,10 @@ namespace Projet_BICE.WPF
             InitializeComponent();
         }
 
-        private void UploadButton_Add_Click(object sender, RoutedEventArgs e)
+        private void UploadButton_AddMateriel_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
             bool? result = openFileDialog.ShowDialog();
-            var list = new List<BICE.Client.Materiel_DTO>();
-
             if (result == true)
             {
                 using (StreamReader reader = new StreamReader(openFileDialog.FileName))
@@ -33,6 +31,7 @@ namespace Projet_BICE.WPF
                     while (!reader.EndOfStream)
                     {
                         var line = reader.ReadLine();
+                        var client = new Client("https://localhost:7238/", new System.Net.Http.HttpClient());
                         var data = line.Split(';');
                         var dto = new BICE.Client.Materiel_DTO()
                            {
@@ -47,21 +46,46 @@ namespace Projet_BICE.WPF
                                 EstStocke = true,
                                 EstActive = true
                             };   
-
-                        
-                        list.Add(dto);
-                        var client = new Client("https://localhost:7238/", new System.Net.Http.HttpClient());
-                        foreach(BICE.Client.Materiel_DTO x in list)
+                        Trace.WriteLine(dto);
+                        if (client.MaterielGetbyID(dto.Id) is null)
                         {
-                            client.AjouterMateriel(x);
+                            client.MaterielAjouter(dto);
+                        }
+                        else
+                        {
+                            client.MaterielUpdate();
                         }
                     }
-
-
-
                 }
 
             }
+
+        }
+
+        private void UploadButton_DelMAteriel_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+            bool? result = openFileDialog.ShowDialog();
+            if (result == true)
+            {
+                using (StreamReader reader = new StreamReader(openFileDialog.FileName))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        var line = reader.ReadLine();
+                        var client = new Client("https://localhost:7238/", new System.Net.Http.HttpClient());
+                        var data = line.Split(';');
+                        var dto = client.MaterielGetById(data[0]);
+                        Trace.WriteLine(dto);
+                        if (client.MaterielGetbyID(dto.Id) is null)
+                        {
+                            throw new Exception("Vous avez essayé de supprimer un matériel inexistant");
+                        }
+                    }
+                }
+
+            }
+
         }
 
     }
