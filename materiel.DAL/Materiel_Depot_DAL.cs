@@ -90,7 +90,7 @@ UPDATE [dbo].[Materiel]([utilisationMax] = @utilisationMax
         {
             InitialiserLaConnexionEtLaCommande();
             Commande.CommandText = @"INSERT INTO [dbo].[Materiel](id, utilisationMax, dateExpiration, dateControle, estStocke, stock, denomination, estActive, utilisation, categorie) " +
-                   "VALUES (@id, @utilisationMax, @dateExpiration, @dateControle, @estStocke, @stock, @denomination, @estActive, @utilisation, @categorie)"; ;
+                   "VALUES (@id, @utilisationMax, @dateExpiration, @dateControle, @estStocke, @stock, @denomination, @estActive, @utilisation, @categorie);" ;
             Commande.Parameters.Add(new SqlParameter("@id", p.Id));
             Commande.Parameters.Add(new SqlParameter("@utilisationMax", p.UtilisationMax??(object)DBNull.Value));
             Commande.Parameters.Add(new SqlParameter("@dateExpiration", p.DateExpiration ?? (object)DBNull.Value));
