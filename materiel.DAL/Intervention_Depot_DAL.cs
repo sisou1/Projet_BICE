@@ -13,14 +13,9 @@ namespace BICE.DAL
         {
             InitialiserLaConnexionEtLaCommande();
 
-            Commande.CommandText = @"USE [Projet_BICE]
-GO
-
-DELETE FROM [dbo].[Intervention]
+            Commande.CommandText = @"DELETE FROM [dbo].[Intervention]
      WHERE
            (id = @id);
-GO
-
 ";
             Commande.Parameters.Add(new SqlParameter("@id", p.Id));
             Commande.ExecuteNonQuery();
@@ -30,16 +25,11 @@ GO
         public override Intervention_DAL Update(Intervention_DAL p)
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"USE [Projet_BICE]
-GO
-
-UPDATE [dbo].[Intervention]([denomination] = @denomination
+            Commande.CommandText = @"UPDATE [dbo].[Intervention]([denomination] = @denomination
            ,[date] = @date
            ,[description] = @description
      WHERE
            (id = @id);
-GO
-
 ";
             Commande.Parameters.Add(new SqlParameter("@id", p.Id));
             Commande.Parameters.Add(new SqlParameter("@description", p.Denomination));
@@ -78,10 +68,7 @@ GO
         public override Intervention_DAL Insert(Intervention_DAL p)
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"USE [Intervention]
-GO
-
-INSERT INTO [dbo].[Intervention]
+            Commande.CommandText = @"INSERT INTO [dbo].[Intervention]
            ([id]
            ,[date]
            ,[denomination]
@@ -92,8 +79,6 @@ INSERT INTO [dbo].[Intervention]
             ,@denomination
             ,@description
             ,null); select scope_identity();
-GO
-
 ";
             Commande.Parameters.Add(new SqlParameter("@id", p.Id));
             Commande.Parameters.Add(new SqlParameter("@date", p.Date));

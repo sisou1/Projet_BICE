@@ -13,10 +13,7 @@ namespace BICE.DAL
         {
             InitialiserLaConnexionEtLaCommande();
 
-            Commande.CommandText = @"USE [Projet_BICE]
-GO
-
-DELETE FROM [dbo].[Vehicule]
+            Commande.CommandText = @"DELETE FROM [dbo].[Vehicule]
      WHERE
            (id = @id);
 GO
@@ -30,17 +27,12 @@ GO
         public override Vehicule_DAL Update(Vehicule_DAL p)
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"USE [Projet_BICE]
-GO
-
-UPDATE [dbo].[Vehicule]([immatriculation] = @immatriculation
+            Commande.CommandText = @"UPDATE [dbo].[Vehicule]([immatriculation] = @immatriculation
            ,[denomination] = @denomination
            ,[numero] = @numero
            ,[estActive] = @estActive
      WHERE
            (id = @id);
-GO
-
 ";
             Commande.Parameters.Add(new SqlParameter("@id", p.Id));
             Commande.Parameters.Add(new SqlParameter("@immatriculation", p.Immatriculation));
@@ -81,10 +73,7 @@ GO
         public override Vehicule_DAL Insert(Vehicule_DAL p)
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"USE [Vehicule]
-GO
-
-INSERT INTO [dbo].[Vehicule]
+            Commande.CommandText = @"INSERT INTO [dbo].[Vehicule]
            ([id]
            ,[immatriculation]
            ,[denomination]
@@ -97,8 +86,6 @@ INSERT INTO [dbo].[Vehicule]
             ,@numero
             ,@estActive
             ,null); select scope_identity();
-GO
-
 ";
             Commande.Parameters.Add(new SqlParameter("@id", p.Id));
             Commande.Parameters.Add(new SqlParameter("@immatriculation", p.Immatriculation));
@@ -128,7 +115,7 @@ GO
                     reader.GetString(1), //Immatriculation
                     reader.GetString(2), //Denomination
                     reader.GetString(3), //Numero
-                    reader.GetBoolean(4)); //EstActive
+                    reader.GetBoolean(4))); //EstActive
             }
             FermerEtDisposerLaConnexionEtLaCommande();
             return liste;
