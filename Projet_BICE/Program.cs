@@ -9,6 +9,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<GestionMateriel_SRV>(new GestionMateriel_SRV());
+builder.Services.AddSingleton<GestionVehicule_SRV>(new GestionVehicule_SRV());
+builder.Services.AddSingleton<GestionIntervention_SRV>(new GestionIntervention_SRV());
 
 var app = builder.Build();
 

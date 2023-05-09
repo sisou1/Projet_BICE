@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BICE.DAL
 {
-    internal class Intervention_Depot_DAL : Depot_DAL<Intervention_DAL>
+    public class Intervention_Depot_DAL : Depot_DAL<Intervention_DAL>
     {
         public override void Delete(Intervention_DAL p)
         {
@@ -68,19 +68,9 @@ namespace BICE.DAL
         public override Intervention_DAL Insert(Intervention_DAL p)
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"INSERT INTO [dbo].[Intervention]
-           ([id]
-           ,[date]
-           ,[denomination]
-           ,[description])
-     VALUES
-           (@id
-            ,@date
-            ,@denomination
-            ,@description
-            ,null); select scope_identity();
-";
-            Commande.Parameters.Add(new SqlParameter("@id", p.Id));
+            Commande.CommandText = @"INSERT INTO Intervention (date, denomination, description) " +
+                   "VALUES (@date, @denomination, @description); " +
+                   "SELECT SCOPE_IDENTITY()";
             Commande.Parameters.Add(new SqlParameter("@date", p.Date));
             Commande.Parameters.Add(new SqlParameter("@denomination", p.Denomination));
             Commande.Parameters.Add(new SqlParameter("@description", p.Description));
