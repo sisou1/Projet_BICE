@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
+using BICE.Client;
 
 namespace Projet_BICE.WPF
 {
@@ -49,7 +50,7 @@ namespace Projet_BICE.WPF
 
                         
                         list.Add(dto);
-                        Trace.WriteLine(dto.Denomination);
+                        var nouveau = new Client().;
                     }
 
 
