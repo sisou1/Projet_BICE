@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\materiel.DAL\BICE.DAL.csproj" />
+    <ProjectReference Include="..\BICE.SRV\BICE.SRV.csproj" />
   </ItemGroup>
 
 </Project>
