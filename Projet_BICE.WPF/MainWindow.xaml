@@ -31,14 +31,14 @@
         <TextBlock Text="Id " VerticalAlignment="Top" Margin="278,122,-268,0" />
         <TextBlock Text="Stock Véhicule " FontSize ="15" VerticalAlignment="Top" Margin="262,97,-252,0" />
         <TextBox x:Name="stockId" VerticalAlignment="Top" Margin="300,121,400,0" Height="18" RenderTransformOrigin="0.115,0.53" />
-        <Button x:Name ="UploadButtonStock" Content="Upload" HorizontalAlignment="Left" Margin="405,120,0,0" VerticalAlignment="Top" Click="UploadButton_AddStockV_Click"/>
+        <!--<Button x:Name ="UploadButtonStock" Content="Upload" HorizontalAlignment="Left" Margin="405,120,0,0" VerticalAlignment="Top" Click="UploadButton_AddStockV_Click"/>-->
         <!--Retour d'intervention-->
         <TextBlock Text="Retour d'intervention" FontSize ="15" VerticalAlignment="Top" Margin="477,97,-467,0" />
         <TextBlock Text="Id " VerticalAlignment="Top" Margin="496,122,-486,0" />
         <TextBox x:Name="retourId" VerticalAlignment="Top" Margin="517,121,183,0" Height="18" />
         <Button x:Name ="UploadButtonRetourNU" Content="Matériel non utilisé" HorizontalAlignment="Left" Margin="632,120,0,0" VerticalAlignment="Top" Click="UploadButton_RetourInterventionMNU" RenderTransformOrigin="0.592,-7.237"/>
         <Button x:Name ="UploadButtonRetourU" Content="Matériel utilisé" HorizontalAlignment="Left" Margin="632,143,0,0" VerticalAlignment="Top" Click="UploadButton_RetourInterventionMU"/>
-        <Button x:Name ="OK" Content="OK" HorizontalAlignment="Left" Margin="632,166,0,0" VerticalAlignment="Top" Click="UploadButton_RetourIntervention"/>
+        <!--<Button x:Name ="OK" Content="OK" HorizontalAlignment="Left" Margin="632,166,0,0" VerticalAlignment="Top" Click="UploadButton_RetourIntervention"/>-->
         <!--Export-->
         <!--Materiels-->
         <TextBlock Text="Export de la liste de matériels" FontSize ="15" VerticalAlignment="Top" Margin="10,273,0,0" />

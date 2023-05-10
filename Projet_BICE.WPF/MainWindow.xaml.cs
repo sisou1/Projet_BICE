@@ -137,7 +137,7 @@ namespace Projet_BICE.WPF
                 client.VehiculeModifier(dto);
             }
         }
-
+        /*
         private void UploadButton_AddStockV_Click(Object sender, RoutedEventArgs e)
         {
             TextBox idVehicule = FindName("stockId") as TextBox;
@@ -168,6 +168,7 @@ namespace Projet_BICE.WPF
 
             }
         }
+        */
 
         List<BICE.Client.Materiel_DTO> listeDTONonUtilise = new List<BICE.Client.Materiel_DTO> {  }; 
         List<BICE.Client.Materiel_DTO> listeDTOUtilise = new List<BICE.Client.Materiel_DTO> {  }; 
@@ -221,12 +222,12 @@ namespace Projet_BICE.WPF
             }
 
         }
+        /*
         private void UploadButton_RetourIntervention(Object sender, RoutedEventArgs e)
         {
             TextBox idVehicule = FindName("retourId") as TextBox;
             var id = int.Parse(idVehicule.Text);
-            List<BICE.Client.Materiel_DTO> listeMateriel = new List<BICE.Client.Materiel_DTO> { };
-            listeMateriel = client.MaterielGetAll;
+            var listeMateriel = client.MaterielGetAll();
             foreach ( var item in listeMateriel)
             {
                 if (item.vehiculeId == id)
@@ -251,7 +252,7 @@ namespace Projet_BICE.WPF
                 }
             }
 
-        }
+        }*/
 
         private void ExportListeMateriel(object sender, RoutedEventArgs e)
         {
