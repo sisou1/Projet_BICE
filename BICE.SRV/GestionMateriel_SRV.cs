@@ -49,6 +49,7 @@ namespace BICE.SRV
                 DateExpiration = Materiel_DAL.DateExpiration,
                 DateControle = Materiel_DAL.DateControle,
                 EstStocke = Materiel_DAL.EstStocke,
+                Stock = Materiel_DAL.Stock,
                 Denomination = Materiel_DAL.Denomination,
                 EstActive = Materiel_DAL.EstActive,
                 Utilisation = Materiel_DAL.Utilisation,

@@ -85,7 +85,7 @@ namespace BICE.DAL
         public override IEnumerable<Intervention_DAL> GetAll()
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"SELECT * FROM [dbo].[Intervention] WHERE id=@id";
+            Commande.CommandText = @"SELECT * FROM [dbo].[intervention]";
 
             var reader = Commande.ExecuteReader();
 

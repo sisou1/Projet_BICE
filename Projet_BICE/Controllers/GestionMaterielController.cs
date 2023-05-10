@@ -36,7 +36,7 @@ namespace Projet_BICE.API.Controllers
         [Route("/MaterielGetAll")]
         public List<Materiel_DTO> GetAll()
         {
-             return (List<Materiel_DTO>)_gestionMateriel_SRV.GetAll();
+             return _gestionMateriel_SRV.GetAll().ToList();
         }
         [HttpPost]
         [Route("/MaterielDelete")]
