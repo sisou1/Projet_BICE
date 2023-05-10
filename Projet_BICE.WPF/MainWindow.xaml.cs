@@ -35,22 +35,24 @@ namespace Projet_BICE.WPF
                     {
                         var line = reader.ReadLine();
                         var data = line.Split(';');
+                        Trace.WriteLine(client.MaterielGetById(384056));
                         var dto = new BICE.Client.Materiel_DTO()
-                           {
-                                Id = int.Parse(data[0]),
-                                Denomination = data[1],
-                                Categorie = data[2],
-                                Utilisation = int.Parse(data[3]),
-                                UtilisationMax = String.IsNullOrEmpty(data[4]) ? null : int.Parse(data[4]),
-                                DateControle = data[5] == "" ? null : DateTime.Parse(data[5]),
-                                DateExpiration = data[6] == "" ? null : DateTime.Parse(data[6]),
-                                Stock = "Caserne",
-                                EstStocke = true,
-                                EstActive = true
-                            };   
-                        Trace.WriteLine(dto.Id);
+                        {
+                            Id = int.Parse(data[0]),
+                            Denomination = data[1],
+                            Categorie = data[2],
+                            Utilisation = int.Parse(data[3]),
+                            UtilisationMax = String.IsNullOrEmpty(data[4]) ? null : int.Parse(data[4]),
+                            DateControle = data[5] == "" ? null : DateTime.Parse(data[5]),
+                            DateExpiration = data[6] == "" ? null : DateTime.Parse(data[6]),
+                            Stock = "Caserne",
+                            EstStocke = true,
+                            EstActive = true
+                        };
+
                         if (client.MaterielGetById(dto.Id) == null)
                         {
+                            Trace.WriteLine(client.MaterielGetById(dto.Id));
                             client.MaterielAjouter(dto);
                         }
                         else
@@ -64,7 +66,7 @@ namespace Projet_BICE.WPF
 
         }
 
-        private void UploadButton_DelMAteriel_Click(object sender, RoutedEventArgs e)
+        private void UploadButton_DelMateriel_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
             bool? result = openFileDialog.ShowDialog();
@@ -79,9 +81,13 @@ namespace Projet_BICE.WPF
                         var data = line.Split(';');
                         var dto = client.MaterielGetById(Int32.Parse(data[0]));
                         Trace.WriteLine(dto);
-                        if (client.MaterielGetById(dto.Id) is null)
+                        if (client.MaterielGetById(dto.Id) == null)
                         {
                             throw new Exception("Vous avez essayé de supprimer un matériel inexistant");
+                        }
+                        else
+                        {
+                            client.MaterielDelete(dto);
                         }
                     }
                 }
@@ -96,14 +102,37 @@ namespace Projet_BICE.WPF
             TextBox denomination = FindName("ajoutDénomination") as TextBox;
             TextBox numero = FindName("ajoutNuméro") as TextBox;
 
-            var vehiculeDTO = new BICE.Client.Vehicule_DTO()
+            var dto = new BICE.Client.Vehicule_DTO()
             {
                 Immatriculation = immatriculation.Text,
                 Denomination = denomination.Text,
                 Numero = numero.Text,
             };
 
-            client.VehiculeAjouter(vehiculeDTO);
+            if (client.VehiculeGetById(dto.Id) == null)
+            {
+                client.VehiculeAjouter(dto);
+            }
+            else
+            {
+                client.VehiculeModifier(dto);
+            }
+        }
+
+        private void UploadButton_DelVehicule_Click(Object sender, RoutedEventArgs e)
+        {
+            TextBox idTextBox = FindName("supprId") as TextBox;
+
+            var id = idTextBox.Text;
+            var dto = client.VehiculeGetById(int.Parse(id));
+            if (dto == null)
+            {
+                throw new Exception("Vous avez essayé de supprimer un véhicule inexistant");
+            }
+            else
+            {
+                client.VehiculeDelete(dto);
+            }
         }
     }
 }
