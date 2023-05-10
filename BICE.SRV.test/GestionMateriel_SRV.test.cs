@@ -10,7 +10,7 @@ namespace BICE.SRV.test
         public void GestionMateriel_SRV_GetById()
         {
             var mock = new Mock<IDepot_DAL<Materiel_DAL>>();
-            mock.Setup(d => d.GetById(It.IsAny<int>())).Returns(new Materiel_DAL(0, 10, DateTime.Now, DateTime.Now, true, "stock", "denomination", true, 5, "categorie"));
+            mock.Setup(d => d.GetById(It.IsAny<int>())).Returns(new Materiel_DAL(0, 10, DateTime.Now, DateTime.Now, true, "stock", 5, "denomination", true, 5, "categorie"));
 
             var srv = new GestionMateriel_SRV(mock.Object);
 
@@ -40,7 +40,7 @@ namespace BICE.SRV.test
         public void GestionMateriel_SRV_Insert()
         {
             var mock = new Mock<IDepot_DAL<Materiel_DAL>>();
-            mock.Setup(d => d.Insert(It.IsAny<Materiel_DAL>())).Returns(new Materiel_DAL(0, 10, DateTime.Now, DateTime.Now, true, "stock", "denomination", true, 5, "categorie"));
+            mock.Setup(d => d.Insert(It.IsAny<Materiel_DAL>())).Returns(new Materiel_DAL(0, 10, DateTime.Now, DateTime.Now, true, "stock", 5, "denomination", true, 5, "categorie"));
 
             var srv = new GestionMateriel_SRV(mock.Object);
 
