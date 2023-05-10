@@ -33,6 +33,7 @@ UPDATE [dbo].[Materiel] set [utilisationMax] = @utilisationMax
            ,[dateControle] = @dateControle
             ,[estStocke] = @estStocke
             ,[stock] = @stock
+            ,[id_vehicule] = @id_vehicule
             ,[denomination] = @denomination
             ,[estActive] = @estActive
             ,[utilisation] = @utilisation
@@ -46,6 +47,7 @@ UPDATE [dbo].[Materiel] set [utilisationMax] = @utilisationMax
             Commande.Parameters.Add(new SqlParameter("@dateControle", p.DateControle ?? (object)DBNull.Value));
             Commande.Parameters.Add(new SqlParameter("@estStocke", p.EstStocke));
             Commande.Parameters.Add(new SqlParameter("@stock", p.Stock));
+            Commande.Parameters.Add(new SqlParameter("@id_vehicule", p.Id_vehicule));
             Commande.Parameters.Add(new SqlParameter("@denomination", p.Denomination));
             Commande.Parameters.Add(new SqlParameter("@estActive", p.EstActive));
             Commande.Parameters.Add(new SqlParameter("@utilisation", p.Utilisation));
@@ -67,6 +69,7 @@ UPDATE [dbo].[Materiel] set [utilisationMax] = @utilisationMax
                                       ,[dateControle]
                                       ,[estStocke]
                                       ,[stock]
+                                      ,[id_vehicule]
                                       ,[denomination]
                                       ,[estActive]
                                       ,[utilisation]
@@ -88,10 +91,11 @@ UPDATE [dbo].[Materiel] set [utilisationMax] = @utilisationMax
                     reader[3]==DBNull.Value ? null : reader.GetDateTime(3), //DateControle
                     reader.GetBoolean(4), //EstStocke
                     reader.GetString(5), //Stock
-                    reader.GetString(6), //Denomination
-                    reader.GetBoolean(7), //EstActive
-                    reader.GetInt32(8), //Utilisation
-                    reader.GetString(9)); //Categorie
+                    reader[6] == DBNull.Value ? null : reader.GetInt32(6), //id_vehicule
+                    reader.GetString(7), //Denomination
+                    reader.GetBoolean(8), //EstActive
+                    reader.GetInt32(9), //Utilisation
+                    reader.GetString(42)); //Categorie
             }
 
             FermerEtDisposerLaConnexionEtLaCommande();
@@ -100,14 +104,15 @@ UPDATE [dbo].[Materiel] set [utilisationMax] = @utilisationMax
         public override Materiel_DAL Insert(Materiel_DAL p)
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"INSERT INTO [dbo].[Materiel](id, utilisationMax, dateExpiration, dateControle, estStocke, stock, denomination, estActive, utilisation, categorie) " +
-                   "VALUES (@id, @utilisationMax, @dateExpiration, @dateControle, @estStocke, @stock, @denomination, @estActive, @utilisation, @categorie);"; ;
+            Commande.CommandText = @"INSERT INTO [dbo].[Materiel](id, utilisationMax, dateExpiration, dateControle, estStocke, stock, id_vehicule, denomination, estActive, utilisation, categorie) " +
+                   "VALUES (@id, @utilisationMax, @dateExpiration, @dateControle, @estStocke, @stock, id_vehicule, @denomination, @estActive, @utilisation, @categorie);"; ;
             Commande.Parameters.Add(new SqlParameter("@id", p.Id));
             Commande.Parameters.Add(new SqlParameter("@utilisationMax", p.UtilisationMax??(object)DBNull.Value));
             Commande.Parameters.Add(new SqlParameter("@dateExpiration", p.DateExpiration ?? (object)DBNull.Value));
             Commande.Parameters.Add(new SqlParameter("@dateControle", p.DateControle ?? (object)DBNull.Value));
             Commande.Parameters.Add(new SqlParameter("@estStocke", p.EstStocke));
             Commande.Parameters.Add(new SqlParameter("@stock", p.Stock));
+            Commande.Parameters.Add(new SqlParameter("@id_vehicule", p.Id_vehicule));
             Commande.Parameters.Add(new SqlParameter("@denomination", p.Denomination));
             Commande.Parameters.Add(new SqlParameter("@estActive", p.EstActive));
             Commande.Parameters.Add(new SqlParameter("@utilisation", p.Utilisation));
@@ -128,6 +133,7 @@ UPDATE [dbo].[Materiel] set [utilisationMax] = @utilisationMax
                                       ,[dateControle]
                                       ,[estStocke]
                                       ,[stock]
+                                      ,[id_vehicule]
                                       ,[denomination]
                                       ,[estActive]
                                       ,[utilisation]
@@ -148,10 +154,11 @@ UPDATE [dbo].[Materiel] set [utilisationMax] = @utilisationMax
                     reader[3] == DBNull.Value ? null : reader.GetDateTime(3), //DateControle
                     reader.GetBoolean(4), //EstStocke
                     reader.GetString(5), //Stock
-                    reader.GetString(6), //Denomination
-                    reader.GetBoolean(7), //EstActive
-                    reader.GetInt32(8), //Utilisation
-                    reader.GetString(9))); //Categorie
+                    reader[6] == DBNull.Value ? null : reader.GetInt32(6), //id_vehicule
+                    reader.GetString(7), //Denomination
+                    reader.GetBoolean(8), //EstActive
+                    reader.GetInt32(9), //Utilisation
+                    reader.GetString(10))); //Categorie
             }
             FermerEtDisposerLaConnexionEtLaCommande();
             return liste;

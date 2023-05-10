@@ -18,5 +18,6 @@ namespace BICE.DTO
         public DateTime? DateExpiration { get; set; }
         public bool EstStocke { get; set; }
         public bool EstActive { get; set; }
+        public int? Id_vehicule { get; set; }
     }
 }
