@@ -28,22 +28,22 @@ namespace BICE.DAL
         {
             InitialiserLaConnexionEtLaCommande();
             Commande.CommandText = @"
-UPDATE [dbo].[Materiel]([utilisationMax] = @utilisationMax
+UPDATE [dbo].[Materiel] set [utilisationMax] = @utilisationMax
            ,[dateExpiration] = @dateExpiration
            ,[dateControle] = @dateControle
             ,[estStocke] = @estStocke
             ,[stock] = @stock
             ,[denomination] = @denomination
-            ,[estActive ] = @estActive
+            ,[estActive] = @estActive
             ,[utilisation] = @utilisation
             ,[categorie] = @categorie
      WHERE
            (id = @id);
 ";
             Commande.Parameters.Add(new SqlParameter("@id", p.Id));
-            Commande.Parameters.Add(new SqlParameter("@utilisationMax", p.UtilisationMax));
-            Commande.Parameters.Add(new SqlParameter("@dateExpiration", p.DateExpiration));
-            Commande.Parameters.Add(new SqlParameter("@dateControle", p.DateControle));
+            Commande.Parameters.Add(new SqlParameter("@utilisationMax", p.UtilisationMax ?? (object)DBNull.Value));
+            Commande.Parameters.Add(new SqlParameter("@dateExpiration", p.DateExpiration ?? (object)DBNull.Value));
+            Commande.Parameters.Add(new SqlParameter("@dateControle", p.DateControle ?? (object)DBNull.Value));
             Commande.Parameters.Add(new SqlParameter("@estStocke", p.EstStocke));
             Commande.Parameters.Add(new SqlParameter("@stock", p.Stock));
             Commande.Parameters.Add(new SqlParameter("@denomination", p.Denomination));
