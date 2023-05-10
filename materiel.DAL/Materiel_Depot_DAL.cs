@@ -85,7 +85,7 @@ UPDATE [dbo].[Materiel] set [utilisationMax] = @utilisationMax
                     reader.GetInt32(0), //id
                     reader.GetSqlInt32(1).IsNull ? null : reader.GetInt32(1), //Utilisation
                     reader[2]==DBNull.Value ? null : reader.GetDateTime(2), //DateControle
-                    reader[3] == DBNull.Value ? null : reader.GetDateTime(3), //DateControle
+                    reader[3]==DBNull.Value ? null : reader.GetDateTime(3), //DateControle
                     reader.GetBoolean(4), //EstStocke
                     reader.GetString(5), //Stock
                     reader.GetString(6), //Denomination
@@ -122,7 +122,17 @@ UPDATE [dbo].[Materiel] set [utilisationMax] = @utilisationMax
         public override IEnumerable<Materiel_DAL> GetAll()
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"SELECT * FROM [dbo].[Materiel] WHERE id=@id";
+            Commande.CommandText = @"SELECT [id]
+                                      ,[utilisationMax]
+                                      ,[dateExpiration]
+                                      ,[dateControle]
+                                      ,[estStocke]
+                                      ,[stock]
+                                      ,[denomination]
+                                      ,[estActive]
+                                      ,[utilisation]
+                                      ,[categorie]
+                                    FROM [dbo].[Materiel]";
 
             var reader = Commande.ExecuteReader();
 
@@ -134,14 +144,14 @@ UPDATE [dbo].[Materiel] set [utilisationMax] = @utilisationMax
                 liste.Add(new Materiel_DAL(
                     reader.GetInt32(0), //id
                     reader.GetSqlInt32(1).IsNull ? null : reader.GetInt32(1), //Utilisation
-                    reader.GetSqlDateTime(3).IsNull ? null : reader.GetDateTime(3), //DateControle
-                    reader.GetSqlDateTime(4).IsNull ? null : reader.GetDateTime(3), //DateControle
-                    reader.GetBoolean(5), //EstStocke
-                    reader.GetString(6), //Stock
-                    reader.GetString(7), //Denomination
-                    reader.GetBoolean(8), //EstActive
-                    reader.GetInt32(9), //Utilisation
-                    reader.GetString(10))); //Categorie
+                    reader[2] == DBNull.Value ? null : reader.GetDateTime(2), //DateControle
+                    reader[3] == DBNull.Value ? null : reader.GetDateTime(3), //DateControle
+                    reader.GetBoolean(4), //EstStocke
+                    reader.GetString(5), //Stock
+                    reader.GetString(6), //Denomination
+                    reader.GetBoolean(7), //EstActive
+                    reader.GetInt32(8), //Utilisation
+                    reader.GetString(9))); //Categorie
             }
             FermerEtDisposerLaConnexionEtLaCommande();
             return liste;

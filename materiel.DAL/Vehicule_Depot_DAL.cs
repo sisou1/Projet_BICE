@@ -91,7 +91,7 @@ GO
         public override IEnumerable<Vehicule_DAL> GetAll()
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"SELECT * FROM [dbo].[Vehicule] WHERE id=@id";
+            Commande.CommandText = @"SELECT * FROM [dbo].[Vehicule]";
 
             var reader = Commande.ExecuteReader();
 
