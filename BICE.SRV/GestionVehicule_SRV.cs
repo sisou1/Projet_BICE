@@ -31,9 +31,10 @@ namespace BICE.SRV
             return vehicule;
         }
 
-        public Vehicule_DTO GetById(int id)
+        public Vehicule_DTO? GetById(int id)
         {
             var Vehicule_DAL = depot_vehicule.GetById(id);
+            if (depot_vehicule.GetById(id) == null) { return null; }
 
             return new Vehicule_DTO()
             {
