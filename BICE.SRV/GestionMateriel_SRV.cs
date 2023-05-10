@@ -40,7 +40,7 @@ namespace BICE.SRV
         public Materiel_DTO? GetById(int id)
         {
             var Materiel_DAL = depot_materiel.GetById(id);
-            if (depot_materiel.GetById(id) == null) { return null; }
+            if (Materiel_DAL == null) { return null; }
 
             return new Materiel_DTO()
             {
