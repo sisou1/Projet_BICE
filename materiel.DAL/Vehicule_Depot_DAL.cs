@@ -27,7 +27,7 @@ GO
         public override Vehicule_DAL Update(Vehicule_DAL p)
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"UPDATE [dbo].[Vehicule]([immatriculation] = @immatriculation
+            Commande.CommandText = @"UPDATE [dbo].[Vehicule] set [immatriculation] = @immatriculation
            ,[denomination] = @denomination
            ,[numero] = @numero
            ,[estActive] = @estActive
