@@ -17,8 +17,10 @@ namespace BICE.BLL
         public bool EstActif { get; private set; }
         public bool EstStocke { get; private set; }
         public string? Stock { get; private set; }
+        public DateTime? DateControle { get; set; }
+        public DateTime? DateExpiration { get; set; }
 
-        public Materiel(int id, int utilisation, int? utilisationMax, bool estActif, bool estStocke, string? stock)
+        public Materiel(int id, int utilisation, int? utilisationMax, bool estActif, bool estStocke, string? stock, DateTime dateControle, DateTime dateExpiration)
         {
             ID = id;
             Utilisation = utilisation;
@@ -26,6 +28,8 @@ namespace BICE.BLL
             EstActif = estActif;
             EstStocke = estStocke;
             Stock = stock;
+            DateControle = dateControle;
+            DateExpiration = dateExpiration;
         }
         #endregion
 
@@ -38,6 +42,10 @@ namespace BICE.BLL
         public bool Test_Max()
         {
             if (Utilisation < UtilisationMax) { return true; } else { return false; }
+        }
+        public void Test_Date()
+        {
+            if (DateExpiration < DateTime.Now) { EstActif = false; }
         }
         
         #endregion
