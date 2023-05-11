@@ -61,7 +61,7 @@ namespace BICE.SRV.test
             mock.Verify(depot => depot.Update(It.IsAny<Vehicule_DAL>()), Times.AtLeastOnce);
         }
 
-        /*
+        
         [Fact]
         public void GestionVehicule_SRV_GetAll()
         {
@@ -77,12 +77,12 @@ namespace BICE.SRV.test
             var result = srv.GetAll();
 
             Assert.NotNull(result);
-            Assert.IsType<List<Vehicule_DAL>>(result);
+            Assert.Equal(2, result.Count() );
 
 
             mock.Verify(depot => depot.GetAll(), Times.AtLeastOnce);
         }
-        */
+        
 
     }
 }

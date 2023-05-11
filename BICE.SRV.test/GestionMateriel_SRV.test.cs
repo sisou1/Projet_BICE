@@ -61,15 +61,15 @@ namespace BICE.SRV.test
             mock.Verify(depot => depot.Update(It.IsAny<Materiel_DAL>()), Times.AtLeastOnce);
         }
 
-        /*
+        
         [Fact]
         public void GestionMateriel_SRV_GetAll()
         {
             var mock = new Mock<IDepot_DAL<Materiel_DAL>>();
             mock.Setup(d => d.GetAll()).Returns(new List<Materiel_DAL>()
             {
-                new Materiel_DAL(0, 10, DateTime.Now, DateTime.Now, true, "stock", "denomination", true, 5, "categorie"),
-                new Materiel_DAL(0, 10, DateTime.Now, DateTime.Now, true, "stock2", "denomination2", true, 5, "categorie2")
+                new Materiel_DAL(0, 10, DateTime.Now, DateTime.Now, true, "stock", 1, "denomination", true, 5, "categorie"),
+                new Materiel_DAL(0, 10, DateTime.Now, DateTime.Now, true, "stock2", 5, "denomination2", true, 5, "categorie2")
             });
 
             var srv = new GestionMateriel_SRV(mock.Object);
@@ -77,12 +77,12 @@ namespace BICE.SRV.test
             var result = srv.GetAll();
 
             Assert.NotNull(result);
-            Assert.IsType<List<Materiel_DAL>>(result);
+            Assert.Equal(2, result.Count() );
 
 
             mock.Verify(depot => depot.GetAll(), Times.AtLeastOnce);
         }
-        */
+        
         
     }
 }
