@@ -48,7 +48,8 @@ namespace Projet_BICE.WPF
                             DateExpiration = data[6] == "" ? null : DateTime.Parse(data[6]),
                             Stock = "Caserne",
                             EstStocke = true,
-                            EstActive = true
+                            EstActive = true,
+                            Id_vehicule = null,
                         };
 
                         if (client.MaterielGetById(dto.Id) == null)
@@ -137,7 +138,7 @@ namespace Projet_BICE.WPF
                 client.VehiculeModifier(dto);
             }
         }
-        /*
+
         private void UploadButton_AddStockV_Click(Object sender, RoutedEventArgs e)
         {
             TextBox idVehicule = FindName("stockId") as TextBox;
@@ -152,15 +153,15 @@ namespace Projet_BICE.WPF
                     {
                         var line = reader.ReadLine();
                         var data = line.Split(';');
-                        var dto = client.MaterielGetById(Int32.Parse(data[0]));
+                        var dto = client.MaterielGetById(int.Parse(data[0]));
                         if (dto == null)
                         {
                             throw new Exception("Vous avez essayé de rajouter un matériel inexistant dans un véhicule");
                         }
                         else
                         {
-                            dto.Stock = "Caserne";
-                            dto.vehiculeId = id;
+                            dto.Stock = "Véhicule";
+                            dto.Id_vehicule = id;
                             client.MaterielModifier(dto);
                         }
                     }
@@ -168,45 +169,22 @@ namespace Projet_BICE.WPF
 
             }
         }
-        */
+        
 
-        List<BICE.Client.Materiel_DTO> listeDTONonUtilise = new List<BICE.Client.Materiel_DTO> {  }; 
-        List<BICE.Client.Materiel_DTO> listeDTOUtilise = new List<BICE.Client.Materiel_DTO> {  }; 
+        
 
-        private void UploadButton_RetourInterventionMNU(Object sender, RoutedEventArgs e)
+    
+    private void UploadButton_RetourIntervention(Object sender, RoutedEventArgs e)
         {
+            List<BICE.Client.Materiel_DTO> listeDTONonUtilise = new List<BICE.Client.Materiel_DTO> { };
+            List<BICE.Client.Materiel_DTO> listeDTOUtilise = new List<BICE.Client.Materiel_DTO> { };
             TextBox idVehicule = FindName("retourId") as TextBox;
-            var id = int.Parse(idVehicule.Text);
-
-            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
-            bool? result = openFileDialog.ShowDialog();
+            Microsoft.Win32.OpenFileDialog pasUtilise = new Microsoft.Win32.OpenFileDialog();
+            Microsoft.Win32.OpenFileDialog utilise = new Microsoft.Win32.OpenFileDialog();
+            bool? result = pasUtilise.ShowDialog();
             if (result == true)
             {
-                using (StreamReader reader = new StreamReader(openFileDialog.FileName))
-                {
-                    while (!reader.EndOfStream)
-                    {
-                        var line = reader.ReadLine();
-                        var data = line.Split(';');
-                        var dto = client.MaterielGetById(Int32.Parse(data[0]));
-                        listeDTONonUtilise.Add(dto);
-                        
-                    }
-                }
-
-            }
-        }
-
-        private void UploadButton_RetourInterventionMU(Object sender, RoutedEventArgs e)
-        {
-            TextBox idVehicule = FindName("retourId") as TextBox;
-            var id = int.Parse(idVehicule.Text);
-
-            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
-            bool? result = openFileDialog.ShowDialog();
-            if (result == true)
-            {
-                using (StreamReader reader = new StreamReader(openFileDialog.FileName))
+                using (StreamReader reader = new StreamReader(pasUtilise.FileName))
                 {
                     while (!reader.EndOfStream)
                     {
@@ -220,22 +198,26 @@ namespace Projet_BICE.WPF
                 }
 
             }
+            result = utilise.ShowDialog();
+            if (result == true)
+            {
+                using (StreamReader reader = new StreamReader(utilise.FileName))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        var line = reader.ReadLine();
+                        var data = line.Split(';');
+                        var dto = client.MaterielGetById(Int32.Parse(data[0]));
+                        listeDTONonUtilise.Add(dto);
 
-        }
-        /*
-        private void UploadButton_RetourIntervention(Object sender, RoutedEventArgs e)
-        {
-            TextBox idVehicule = FindName("retourId") as TextBox;
+                    }
+                }
+
+            }
             var id = int.Parse(idVehicule.Text);
             var listeMateriel = client.MaterielGetAll();
-            foreach ( var item in listeMateriel)
-            {
-                if (item.vehiculeId == id)
-                {
-                    listeMateriel.Add(item);
-                }
-            }
-            var nbRetour = listeMateriel.Count();
+            var listeDansLeVehicule = listeMateriel.Where(m=> m.Id_vehicule==id).ToList();
+            var nbRetour = listeDansLeVehicule.Count();
             var nbParti = listeDTONonUtilise.Count() + listeDTOUtilise.Count();
             if (nbRetour == nbParti)
             {
@@ -244,15 +226,33 @@ namespace Projet_BICE.WPF
             else
             {
                 List<BICE.Client.Materiel_DTO> fusion = listeDTOUtilise.Concat(listeDTONonUtilise).ToList();
-                IEnumerable<BICE.Client.Materiel_DTO> différences = listeMateriel.Except(fusion);
-                foreach(var item in différences)
+                int cpt = 0;
+                List<BICE.Client.Materiel_DTO> differences = new List<BICE.Client.Materiel_DTO>();
+                foreach (var materiel in listeDansLeVehicule)
+                {
+                    cpt = 0;
+                    foreach(var materielRetour in fusion)
+                    {
+                        if(materiel.Id == materielRetour.Id)
+                        {
+                            cpt++;
+                        }
+
+                    }
+                    if (cpt == 0) 
+                    {
+                        differences.Add(materiel);
+                    }
+                }
+                foreach(var item in differences)
                 {
                     item.Stock = "Perdu";
                     item.EstStocke = false;
+                    client.MaterielModifier(item);
                 }
             }
 
-        }*/
+        }
 
         private void ExportListeMateriel(object sender, RoutedEventArgs e)
         {
@@ -284,6 +284,7 @@ namespace Projet_BICE.WPF
                         item.EstStocke.ToString(),
                         item.Categorie.ToString(),
                         item.Stock.ToString(),
+                        item.Id_vehicule.ToString() ?? "",
                     });
 
                     streamWriter.Write(row + newLine);
@@ -323,6 +324,7 @@ namespace Projet_BICE.WPF
                         item.EstStocke.ToString(),
                         item.Categorie.ToString(),
                         item.Stock.ToString(),
+                        item.Id_vehicule.ToString() ?? "",
                     });
 
                     streamWriter.Write(row + newLine);
@@ -362,6 +364,7 @@ namespace Projet_BICE.WPF
                         item.EstStocke.ToString(),
                         item.Categorie.ToString(),
                         item.Stock.ToString(),
+                        item.Id_vehicule.ToString()?? "",
                     });
 
                     streamWriter.Write(row + newLine);

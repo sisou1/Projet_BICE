@@ -547,7 +547,7 @@ namespace BICE.Client
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            return null;
                         }
                     }
                     finally
@@ -965,7 +965,7 @@ namespace BICE.Client
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            return null;
                         }
                     }
                     finally
@@ -1419,6 +1419,9 @@ namespace BICE.Client
 
         [Newtonsoft.Json.JsonProperty("estActive", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool EstActive { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("id_vehicule", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Id_vehicule { get; set; }
 
     }
 
