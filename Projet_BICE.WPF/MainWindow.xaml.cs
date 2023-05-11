@@ -110,16 +110,24 @@ namespace Projet_BICE.WPF
                 Numero = numero.Text,
                 EstActive = true,
             };
+            client.VehiculeAjouter(dto);
+        }
 
-            if (client.VehiculeGetById(dto.Id) == null)
+        private void UploadButton_UpdateVehicule_Click(object sender, RoutedEventArgs e)
+        {
+            TextBox id = FindName("modifId") as TextBox;
+            TextBox immatriculation = FindName("modifImmatriculation") as TextBox;
+            TextBox denomination = FindName("modifDénomination") as TextBox;
+            TextBox numero = FindName("modifNuméro") as TextBox;
+            var dto = new BICE.Client.Vehicule_DTO()
             {
-                client.VehiculeAjouter(dto);
-            }
-            else
-            {
-                dto.EstActive = false;
-                client.VehiculeModifier(dto);
-            }
+                Id = int.Parse(id.Text),
+                Immatriculation = immatriculation.Text,
+                Denomination = denomination.Text,
+                Numero = numero.Text,
+                EstActive = true,
+            };
+            client.VehiculeModifier(dto);
         }
 
         private void UploadButton_DelVehicule_Click(Object sender, RoutedEventArgs e)
@@ -214,6 +222,12 @@ namespace Projet_BICE.WPF
                 }
 
             }
+            //Gestion des matériels utilisés
+            foreach(var dto in listeDTOUtilise)
+            {
+                client.MaterielAjoutUtilisation(dto);
+            }
+            //Gestion des matériels perdus
             var id = int.Parse(idVehicule.Text);
             var listeMateriel = client.MaterielGetAll();
             var listeDansLeVehicule = listeMateriel.Where(m=> m.Id_vehicule==id).ToList();
@@ -251,6 +265,7 @@ namespace Projet_BICE.WPF
                     client.MaterielModifier(item);
                 }
             }
+            //Ajout de l'intervention
             TextBox denom = FindName("ajoutDénominationInter") as TextBox;
             TextBox description = FindName("ajoutDescription") as TextBox;
             var interventionDto = new BICE.Client.Intervention_DTO()
@@ -305,7 +320,7 @@ namespace Projet_BICE.WPF
 
         private void ExportListeMaterielJeter(object sender, RoutedEventArgs e)
         {
-            TextBox directory = FindName("directory") as TextBox;
+            TextBox directory = FindName("directory2") as TextBox;
             var streamWriter = new StreamWriter(directory.Text + "/materielJeter.csv");
 
             var listMateriel = (List<BICE.Client.Materiel_DTO>)client.MaterielGetAll();
@@ -318,7 +333,7 @@ namespace Projet_BICE.WPF
             foreach (var item in listMateriel)
             {
 
-                if (!item.EstStocke)
+                if (!item.EstActive && item.EstStocke)
                 {
                     //this acts as datacolumn
                     var row = string.Join(";", new List<string>()
@@ -345,7 +360,7 @@ namespace Projet_BICE.WPF
 
         private void ExportListeMaterielControler(object sender, RoutedEventArgs e)
         {
-            TextBox directory = FindName("directory") as TextBox;
+            TextBox directory = FindName("directory3") as TextBox;
             var streamWriter = new StreamWriter(directory.Text + "/materielControler.csv");
 
             var listMateriel = (List<BICE.Client.Materiel_DTO>)client.MaterielGetAll();
@@ -357,8 +372,10 @@ namespace Projet_BICE.WPF
             //this acts as datarow
             foreach (var item in listMateriel)
             {
-
-                if (item.DateControle == DateAndTime.Now)
+                var date = DateTime.Now;
+                var dateonly = date.ToString("dd/mm/yyyy");
+                var d = item.DateControle.ToString().Substring(0,10);
+                if (d == dateonly && item.EstActive == true)
                 {
                     //this acts as datacolumn
                     var row = string.Join(";", new List<string>()

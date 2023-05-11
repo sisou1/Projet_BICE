@@ -12,26 +12,34 @@
         <Button x:Name ="UploadButton" Content="Ajouter" HorizontalAlignment="Left" Margin="200,59,0,0" VerticalAlignment="Top" Click="UploadButton_AddMateriel_Click" RenderTransformOrigin="0.686,-0.663"/>
         <Button x:Name ="UploadButtonDel" Content="Supprimer" HorizontalAlignment="Left" Margin="496,59,0,0" VerticalAlignment="Top" Click="UploadButton_DelMateriel_Click"/>
         <!--Véhicule-->
+        <!--Modification-->
+        <TextBlock Text="Modifier " FontWeight ="DemiBold" VerticalAlignment="Top" Margin="203,120,-193,0" />
+        <TextBox x:Name="modifImmatriculation" VerticalAlignment="Top" Margin="203,142,497,0" Height="18" />
+        <TextBox x:Name="modifNuméro" VerticalAlignment="Top" Margin="203,157,497,0" Height="18" />
+        <TextBox x:Name="modifDénomination" VerticalAlignment="Top" Margin="203,177,497,0" Height="18" />
+        <TextBox x:Name="modifId" VerticalAlignment="Top" Margin="203,194,497,0" Height="18" />
+        <TextBlock Text="Id " VerticalAlignment="Top" Margin="189,196,-179,0" />
+        <Button x:Name ="UploadButtonUpdateVehicule" Content="OK" HorizontalAlignment="Left" Margin="308,194,0,0" VerticalAlignment="Top" Click="UploadButton_UpdateVehicule_Click"/>
         <!--Ajout-->
         <TextBlock Text="Immatriculation " VerticalAlignment="Top" Margin="10,145,0,0" />
         <TextBlock Text="Véhicule " FontSize ="15" VerticalAlignment="Top" Margin="10,97,0,0" />
         <TextBlock Text="Ajouter " FontWeight ="DemiBold" VerticalAlignment="Top" Margin="10,122,0,0" />
         <TextBlock Text="Numéro " VerticalAlignment="Top" Margin="10,161,0,0" />
         <TextBlock Text="Dénomination " VerticalAlignment="Top" Margin="10,178,0,0" />
-        <TextBox x:Name="ajoutImmatriculation" VerticalAlignment="Top" Margin="103,144,597,0" Height="18" />
-        <TextBox x:Name="ajoutNuméro" VerticalAlignment="Top" Margin="103,159,597,0" Height="18" />
+        <TextBox x:Name="ajoutImmatriculation" VerticalAlignment="Top" Margin="103,142,597,0" Height="18" />
+        <TextBox x:Name="ajoutNuméro" VerticalAlignment="Top" Margin="103,157,597,0" Height="18" />
         <TextBox x:Name="ajoutDénomination" VerticalAlignment="Top" Margin="103,177,597,0" Height="18" />
+        <Button x:Name ="UploadButtonVehicule" Content="OK" HorizontalAlignment="Left" Margin="103,194,0,0" VerticalAlignment="Top" Click="UploadButton_AddVehicule_Click"/>
         <!--Suppression-->
         <TextBlock Text="Supprimer " FontWeight ="DemiBold" VerticalAlignment="Top" Margin="10,205,0,0" />
         <TextBox x:Name="supprId" VerticalAlignment="Top" Margin="103,224,597,0" Height="18" />
         <TextBlock Text="Id " VerticalAlignment="Top" Margin="10,226,0,0" />
-        <Button x:Name ="UploadButtonVehicule" Content="OK" HorizontalAlignment="Left" Margin="211,176,0,0" VerticalAlignment="Top" Click="UploadButton_AddVehicule_Click"/>
         <Button x:Name ="UploadButtonVehiculeDel" Content="OK" HorizontalAlignment="Left" Margin="211,223,0,0" VerticalAlignment="Top" Click="UploadButton_DelVehicule_Click"/>
         <!--Stock Vehicule-->
-        <TextBlock Text="Id " VerticalAlignment="Top" Margin="278,122,-268,0" />
-        <TextBlock Text="Stock Véhicule " FontSize ="15" VerticalAlignment="Top" Margin="262,97,-252,0" />
-        <TextBox x:Name="stockId" VerticalAlignment="Top" Margin="300,121,400,0" Height="18" RenderTransformOrigin="0.115,0.53" />
-        <Button x:Name ="UploadButtonStock" Content="Upload" HorizontalAlignment="Left" Margin="405,120,0,0" VerticalAlignment="Top" Click="UploadButton_AddStockV_Click"/>
+        <TextBlock Text="Id " VerticalAlignment="Top" Margin="490,207,-480,0" />
+        <TextBlock Text="Stock Véhicule " FontSize ="15" VerticalAlignment="Top" Margin="477,182,-467,0" />
+        <TextBox x:Name="stockId" VerticalAlignment="Top" Margin="517,206,183,0" Height="18" RenderTransformOrigin="0.115,0.53" />
+        <Button x:Name ="UploadButtonStock" Content="Upload" HorizontalAlignment="Left" Margin="636,203,0,0" VerticalAlignment="Top" Click="UploadButton_AddStockV_Click"/>
         <!--Retour d'intervention-->
         <TextBlock Text="Retour d'intervention" FontSize ="15" VerticalAlignment="Top" Margin="477,97,-467,0" />
         <TextBlock Text="Id du véhicule " VerticalAlignment="Top" Margin="490,123,-480,0" />
