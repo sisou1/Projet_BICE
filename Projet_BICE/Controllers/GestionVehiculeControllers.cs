@@ -36,7 +36,7 @@ namespace Projet_BICE.API.Controllers
         [Route("/VehiculeGetAll")]
         public List<Vehicule_DTO> GetAll()
         {
-            return (List<Vehicule_DTO>)_gestionVehicule_SRV.GetAll();
+            return _gestionVehicule_SRV.GetAll().ToList();
         }
         [HttpPost]
         [Route("/VehiculeDelete")]

@@ -29,7 +29,7 @@ namespace Projet_BICE.API.Controllers
         [Route("/InterventionGetAll")]
         public List<Intervention_DTO> GetAll()
         {
-            return (List<Intervention_DTO>)_gestionIntervention_SRV.GetAll();
+            return _gestionIntervention_SRV.GetAll().ToList();
         }
     }
 }

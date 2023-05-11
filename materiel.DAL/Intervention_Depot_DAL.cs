@@ -85,7 +85,7 @@ namespace BICE.DAL
         public override IEnumerable<Intervention_DAL> GetAll()
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"SELECT * FROM [dbo].[intervention]";
+            Commande.CommandText = @"SELECT * FROM [dbo].[intervention] ORDER BY date DESC";
 
             var reader = Commande.ExecuteReader();
 

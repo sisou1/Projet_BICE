@@ -36,7 +36,6 @@ namespace BICE.SRV.test
             Assert.NotNull(result);
             Assert.IsType<Intervention_DTO>(result);
 
-            //pas compris
             mock.Verify(depot => depot.GetById(It.IsAny<int>()), Times.AtLeastOnce);
         }
         [Fact]
