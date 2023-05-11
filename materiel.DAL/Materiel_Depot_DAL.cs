@@ -47,7 +47,7 @@ UPDATE [dbo].[Materiel] set [utilisationMax] = @utilisationMax
             Commande.Parameters.Add(new SqlParameter("@dateControle", p.DateControle ?? (object)DBNull.Value));
             Commande.Parameters.Add(new SqlParameter("@estStocke", p.EstStocke));
             Commande.Parameters.Add(new SqlParameter("@stock", p.Stock));
-            Commande.Parameters.Add(new SqlParameter("@id_vehicule", p.Id_vehicule));
+            Commande.Parameters.Add(new SqlParameter("@id_vehicule", p.Id_vehicule ?? (object)DBNull.Value));
             Commande.Parameters.Add(new SqlParameter("@denomination", p.Denomination));
             Commande.Parameters.Add(new SqlParameter("@estActive", p.EstActive));
             Commande.Parameters.Add(new SqlParameter("@utilisation", p.Utilisation));
@@ -95,7 +95,7 @@ UPDATE [dbo].[Materiel] set [utilisationMax] = @utilisationMax
                     reader.GetString(7), //Denomination
                     reader.GetBoolean(8), //EstActive
                     reader.GetInt32(9), //Utilisation
-                    reader.GetString(42)); //Categorie
+                    reader.GetString(10)); //Categorie
             }
 
             FermerEtDisposerLaConnexionEtLaCommande();
@@ -105,14 +105,14 @@ UPDATE [dbo].[Materiel] set [utilisationMax] = @utilisationMax
         {
             InitialiserLaConnexionEtLaCommande();
             Commande.CommandText = @"INSERT INTO [dbo].[Materiel](id, utilisationMax, dateExpiration, dateControle, estStocke, stock, id_vehicule, denomination, estActive, utilisation, categorie) " +
-                   "VALUES (@id, @utilisationMax, @dateExpiration, @dateControle, @estStocke, @stock, id_vehicule, @denomination, @estActive, @utilisation, @categorie);"; ;
+                   "VALUES (@id, @utilisationMax, @dateExpiration, @dateControle, @estStocke, @stock, @id_vehicule, @denomination, @estActive, @utilisation, @categorie);"; ;
             Commande.Parameters.Add(new SqlParameter("@id", p.Id));
             Commande.Parameters.Add(new SqlParameter("@utilisationMax", p.UtilisationMax??(object)DBNull.Value));
             Commande.Parameters.Add(new SqlParameter("@dateExpiration", p.DateExpiration ?? (object)DBNull.Value));
             Commande.Parameters.Add(new SqlParameter("@dateControle", p.DateControle ?? (object)DBNull.Value));
             Commande.Parameters.Add(new SqlParameter("@estStocke", p.EstStocke));
             Commande.Parameters.Add(new SqlParameter("@stock", p.Stock));
-            Commande.Parameters.Add(new SqlParameter("@id_vehicule", p.Id_vehicule));
+            Commande.Parameters.Add(new SqlParameter("@id_vehicule", p.Id_vehicule ?? (object)DBNull.Value));
             Commande.Parameters.Add(new SqlParameter("@denomination", p.Denomination));
             Commande.Parameters.Add(new SqlParameter("@estActive", p.EstActive));
             Commande.Parameters.Add(new SqlParameter("@utilisation", p.Utilisation));
