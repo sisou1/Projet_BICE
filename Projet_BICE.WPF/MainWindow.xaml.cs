@@ -174,7 +174,7 @@ namespace Projet_BICE.WPF
         
 
     
-    private void UploadButton_RetourIntervention(Object sender, RoutedEventArgs e)
+        private void UploadButton_RetourIntervention(Object sender, RoutedEventArgs e)
         {
             List<BICE.Client.Materiel_DTO> listeDTONonUtilise = new List<BICE.Client.Materiel_DTO> { };
             List<BICE.Client.Materiel_DTO> listeDTOUtilise = new List<BICE.Client.Materiel_DTO> { };
@@ -251,6 +251,15 @@ namespace Projet_BICE.WPF
                     client.MaterielModifier(item);
                 }
             }
+            TextBox denom = FindName("ajoutDénominationInter") as TextBox;
+            TextBox description = FindName("ajoutDescription") as TextBox;
+            var interventionDto = new BICE.Client.Intervention_DTO()
+            {
+                Date = DateTime.Now,
+                Denomination = denom.Text,
+                Description = description.Text, 
+            };
+            client.InterventionAjouter(interventionDto);
 
         }
 
