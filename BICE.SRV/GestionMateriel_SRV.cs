@@ -114,6 +114,31 @@ namespace BICE.SRV
                 );
            depot_materiel.Delete(materiel_DAL);
         }
+        public void UtilisationRetourIntervention(Materiel_DTO m)
+        {
+            if (m == null)
+                throw new Exception("pas de materiel avec cette id");
+            var materiel_BLL = new Materiel_BLL(m.Id, m.UtilisationMax, m.DateExpiration, m.DateControle, m.EstStocke, m.Stock, m.Id_vehicule, m.Denomination, m.EstActive, m.Utilisation, m.Categorie);
+
+            materiel_BLL.AjoutUtilisation();
+            materiel_BLL.Test_Max();
+
+            var materiel_dal = new Materiel_DAL(materiel_BLL.Id, materiel_BLL.UtilisationMax, materiel_BLL.DateExpiration, materiel_BLL.DateControle, materiel_BLL.EstStocke, materiel_BLL.Stock, materiel_BLL.Id_vehicule, materiel_BLL.Denomination, materiel_BLL.EstActive, materiel_BLL.Utilisation, materiel_BLL.Categorie);
+            depot_materiel.Update(materiel_dal);
+
+        }
+        public void ControleMateriel(Materiel_DTO m)
+        {
+            if (m == null)
+                throw new Exception("pas de materiel avec cette id");
+            var materiel_BLL = new Materiel_BLL(m.Id, m.UtilisationMax, m.DateExpiration, m.DateControle, m.EstStocke, m.Stock, m.Id_vehicule, m.Denomination, m.EstActive, m.Utilisation, m.Categorie);
+
+            materiel_BLL.Controle();
+
+            var materiel_dal = new Materiel_DAL(materiel_BLL.Id, materiel_BLL.UtilisationMax, materiel_BLL.DateExpiration, materiel_BLL.DateControle, materiel_BLL.EstStocke, materiel_BLL.Stock, materiel_BLL.Id_vehicule, materiel_BLL.Denomination, materiel_BLL.EstActive, materiel_BLL.Utilisation, materiel_BLL.Categorie);
+            depot_materiel.Update(materiel_dal);
+
+        }
     }
 }
 //La couche SRV recoit une collection de DTO et la découpe afin de l'envoyer à la couche DAL
