@@ -39,5 +39,25 @@ namespace BICE.SRV.test
             //pas compris
             mock.Verify(depot => depot.GetById(It.IsAny<int>()), Times.AtLeastOnce);
         }
+        [Fact]
+        public void GestionIntervention_SRV_GetAll()
+        {
+            var mock = new Mock<IDepot_DAL<Intervention_DAL>>();
+            mock.Setup(d => d.GetAll()).Returns(new List<Intervention_DAL>()
+            {
+                new Intervention_DAL(0, DateTime.Now, "bonjour", "bonsoir"),
+                new Intervention_DAL(0, DateTime.Now, "on", "off")
+            });
+
+            var srv = new GestionIntervention_SRV(mock.Object);
+
+            var result = srv.GetAll();
+
+            Assert.NotNull(result);
+            Assert.Equal(2, result.Count());
+
+
+            mock.Verify(depot => depot.GetAll(), Times.AtLeastOnce);
+        }
     }
 }
