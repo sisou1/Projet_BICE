@@ -38,11 +38,24 @@ namespace Projet_BICE.API.Controllers
         {
              return _gestionMateriel_SRV.GetAll().ToList();
         }
+
         [HttpPost]
         [Route("/MaterielDelete")]
         public void Delete(Materiel_DTO materiel)
         {
             _gestionMateriel_SRV.Delete(materiel);
+        }
+        [HttpPost]
+        [Route("/MaterielAjoutUtilisation")]
+        public void UtilisationRetourIntervention(Materiel_DTO materiel)
+        {
+            _gestionMateriel_SRV.UtilisationRetourIntervention(materiel);
+        }
+        [HttpPost]
+        [Route("/MaterielControle")]
+        public void ControleMateriel(Materiel_DTO materiel)
+        {
+            _gestionMateriel_SRV.ControleMateriel(materiel);
         }
     }
 }

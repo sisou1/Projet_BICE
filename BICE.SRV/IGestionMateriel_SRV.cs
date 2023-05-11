@@ -14,5 +14,6 @@ namespace BICE.SRV
         public  void Delete(Materiel_DTO materiel);
         public IEnumerable<Materiel_DTO> GetAll();
         public  Materiel_DTO Update(Materiel_DTO materiel);
+        public void UtilisationRetourIntervention(Materiel_DTO m);
     }
 }
