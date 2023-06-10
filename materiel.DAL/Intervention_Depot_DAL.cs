@@ -79,6 +79,14 @@ namespace BICE.DAL
 
             p.Id = Convert.ToInt32((decimal)Commande.ExecuteScalar());
             FermerEtDisposerLaConnexionEtLaCommande();
+            /*
+             foreach (element in List<Vehicule_DAL>){
+                INSERT INTO Intervention_Vehicule (id_vehicule, id_intervention)
+                Values (@id_element, @id_intervention)
+            }
+            Commande.Parameters.Add(new SqlParameter("@id_element", p.Id));
+            Commande.Parameters.Add(new SqlParameter("@id_intervention", element.Id));
+             */
 
             return p;
         }
