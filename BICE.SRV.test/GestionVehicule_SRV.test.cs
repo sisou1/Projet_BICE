@@ -19,7 +19,6 @@ namespace BICE.SRV.test
             Assert.NotNull(result);
             Assert.IsType<Vehicule_DTO>(result);
 
-            //pas compris
             mock.Verify(depot => depot.GetById(It.IsAny<int>()), Times.AtLeastOnce);
         }
 
@@ -68,8 +67,8 @@ namespace BICE.SRV.test
             var mock = new Mock<IDepot_DAL<Vehicule_DAL>>();
             mock.Setup(d => d.GetAll()).Returns(new List<Vehicule_DAL>()
             {
-                new Vehicule_DAL(0, 10, DateTime.Now, DateTime.Now, true, "stock", "denomination", true, 5, "categorie"),
-                new Vehicule_DAL(0, 10, DateTime.Now, DateTime.Now, true, "stock2", "denomination2", true, 5, "categorie2")
+                new Vehicule_DAL(0, "ID897PA", "kangoo", "6", true),
+                new Vehicule_DAL(0, "DS987AK", "kangoo", "4", false),
             });
 
             var srv = new GestionVehicule_SRV(mock.Object);

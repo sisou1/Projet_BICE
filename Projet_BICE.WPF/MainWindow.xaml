@@ -17,9 +17,12 @@
         <TextBox x:Name="modifImmatriculation" VerticalAlignment="Top" Margin="203,142,497,0" Height="18" />
         <TextBox x:Name="modifNuméro" VerticalAlignment="Top" Margin="203,157,497,0" Height="18" />
         <TextBox x:Name="modifDénomination" VerticalAlignment="Top" Margin="203,177,497,0" Height="18" />
-        <TextBox x:Name="modifId" VerticalAlignment="Top" Margin="203,194,497,0" Height="18" />
-        <TextBlock Text="Id " VerticalAlignment="Top" Margin="189,196,-179,0" />
-        <Button x:Name ="UploadButtonUpdateVehicule" Content="OK" HorizontalAlignment="Left" Margin="308,194,0,0" VerticalAlignment="Top" Click="UploadButton_UpdateVehicule_Click"/>
+        <ComboBox HorizontalAlignment="Left" Margin="203,196,0,0" VerticalAlignment="Top" Width="120" Name="modifVehiculeCible"/>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding Name}" />
+            </StackPanel>
+            <TextBlock Text="Véhicule " VerticalAlignment="Top" Margin="153,196,-143,0" />
+        <Button x:Name ="UploadButtonUpdateVehicule" Content="OK" HorizontalAlignment="Left" Margin="328,198,0,0" VerticalAlignment="Top" Click="UploadButton_UpdateVehicule_Click"/>
         <!--Ajout-->
         <TextBlock Text="Immatriculation " VerticalAlignment="Top" Margin="10,145,0,0" />
         <TextBlock Text="Véhicule " FontSize ="15" VerticalAlignment="Top" Margin="10,97,0,0" />
@@ -66,5 +69,6 @@
         <TextBox x:Name="directory2" VerticalAlignment="Top" Margin="517,297,183,0" Height="18" />
         <TextBlock Text="Emplacement" VerticalAlignment="Top" Margin="426,298,-416,0" />
         <Button x:Name ="Liste_Matériels_Finito" Content="Télécharger" HorizontalAlignment="Left" Margin="625,296,0,0" VerticalAlignment="Top" Click="ExportListeMaterielJeter" RenderTransformOrigin="0.35,-4.081"/>
+
     </Grid>
 </Window>

@@ -10,20 +10,23 @@ using BICE.Client;
 using System.Windows.Controls;
 using Microsoft.VisualBasic;
 using System.Collections.ObjectModel;
+using System.Windows.Media;
 
 namespace Projet_BICE.WPF
 {
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        Client client = new Client("https://localhost:7238/", new System.Net.Http.HttpClient());
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        Client client = new Client("https://localhost:7238/", new System.Net.Http.HttpClient());
+            modifVehiculeCible.ItemsSource = (System.Collections.IEnumerable)client.VehiculeGetById(4);
+        }   
 
         private void UploadButton_AddMateriel_Click(object sender, RoutedEventArgs e)
         {
@@ -293,7 +296,7 @@ namespace Projet_BICE.WPF
             foreach (var item in listMateriel)
             {
 
-                if (item.EstStocke)
+                if (item.EstStocke && item.EstActive)
                 {
                     //this acts as datacolumn
                     var row = string.Join(";", new List<string>()
@@ -373,7 +376,7 @@ namespace Projet_BICE.WPF
             foreach (var item in listMateriel)
             {
                 var date = DateTime.Now;
-                var dateonly = date.ToString("dd/mm/yyyy");
+                var dateonly = date.ToString("dd/MM/yyyy");
                 var d = item.DateControle.ToString().Substring(0,10);
                 if (d == dateonly && item.EstActive == true)
                 {
@@ -399,7 +402,6 @@ namespace Projet_BICE.WPF
 
             streamWriter.Close();
         }
-
 
     }
 }
