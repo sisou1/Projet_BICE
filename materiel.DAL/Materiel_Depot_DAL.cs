@@ -163,6 +163,11 @@ UPDATE [dbo].[Materiel] set [utilisationMax] = @utilisationMax
             FermerEtDisposerLaConnexionEtLaCommande();
             return liste;
         }
+
+        public override IEnumerable<Materiel_DAL> GetAllById(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

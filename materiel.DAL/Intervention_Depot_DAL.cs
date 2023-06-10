@@ -111,5 +111,10 @@ namespace BICE.DAL
             FermerEtDisposerLaConnexionEtLaCommande();
             return liste;
         }
+
+        public override IEnumerable<Intervention_DAL> GetAllById(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

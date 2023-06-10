@@ -13,6 +13,7 @@ namespace BICE.DAL
         public void Delete(Type_DAL p);
         public Type_DAL GetById(int id);
         public IEnumerable<Type_DAL> GetAll();
+        public IEnumerable<Type_DAL> GetAllById(int id);
 
     }
 }
