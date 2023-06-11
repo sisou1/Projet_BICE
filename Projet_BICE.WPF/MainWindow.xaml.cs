@@ -10,23 +10,32 @@ using BICE.Client;
 using System.Windows.Controls;
 using Microsoft.VisualBasic;
 using System.Collections.ObjectModel;
-using System.Windows.Media;
 
 namespace Projet_BICE.WPF
 {
-
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-
         Client client = new Client("https://localhost:7238/", new System.Net.Http.HttpClient());
+
+        public ObservableCollection<string> Options { get; set; }
+        public string SelectedOption { get; set; }
+        public string SelectedOptionStock { get; set; }
+        public string SelectedOptionRetour { get; set; }
         public MainWindow()
         {
             InitializeComponent();
-            modifVehiculeCible.ItemsSource = (System.Collections.IEnumerable)client.VehiculeGetById(4);
-        }   
+
+            Options = new ObservableCollection<string>();
+            var lsVehicule = client.VehiculeGetAll().Where(v => v.EstActive);
+            foreach (var v in lsVehicule)
+            {
+                Options.Add(v.Denomination +  ": " + v.Immatriculation + " ID : " + v.Id);
+            }
+            DataContext = this;
+        }
 
         private void UploadButton_AddMateriel_Click(object sender, RoutedEventArgs e)
         {
@@ -118,19 +127,27 @@ namespace Projet_BICE.WPF
 
         private void UploadButton_UpdateVehicule_Click(object sender, RoutedEventArgs e)
         {
-            TextBox id = FindName("modifId") as TextBox;
             TextBox immatriculation = FindName("modifImmatriculation") as TextBox;
             TextBox denomination = FindName("modifDénomination") as TextBox;
             TextBox numero = FindName("modifNuméro") as TextBox;
-            var dto = new BICE.Client.Vehicule_DTO()
+            // Exemple d'utilisation de la valeur sélectionnée
+            if (!string.IsNullOrEmpty(SelectedOption))
             {
-                Id = int.Parse(id.Text),
-                Immatriculation = immatriculation.Text,
-                Denomination = denomination.Text,
-                Numero = numero.Text,
-                EstActive = true,
-            };
-            client.VehiculeModifier(dto);
+                char SelectedOptionId = SelectedOption[SelectedOption.Length - 1];
+                int id;
+                string SelectedOptionIdString = SelectedOptionId.ToString();
+                id = Convert.ToInt32(SelectedOptionIdString);
+
+                var dto = new BICE.Client.Vehicule_DTO()
+                {
+                    Id = id,
+                    Immatriculation = immatriculation.Text,
+                    Denomination = denomination.Text,
+                    Numero = numero.Text,
+                    EstActive = true,
+                };
+                client.VehiculeModifier(dto);
+            }          
         }
 
         private void UploadButton_DelVehicule_Click(Object sender, RoutedEventArgs e)
@@ -153,32 +170,38 @@ namespace Projet_BICE.WPF
         private void UploadButton_AddStockV_Click(Object sender, RoutedEventArgs e)
         {
             TextBox idVehicule = FindName("stockId") as TextBox;
-            var id = int.Parse(idVehicule.Text);
+            int id;
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
             bool? result = openFileDialog.ShowDialog();
-            if (result == true)
+            if (!string.IsNullOrEmpty(SelectedOptionStock))
             {
-                using (StreamReader reader = new StreamReader(openFileDialog.FileName))
+                char SelectedOptionId = SelectedOptionStock[SelectedOptionStock.Length - 1];
+                string SelectedOptionIdString = SelectedOptionId.ToString();
+                id = Convert.ToInt32(SelectedOptionIdString);
+                if (result == true)
                 {
-                    while (!reader.EndOfStream)
+                    using (StreamReader reader = new StreamReader(openFileDialog.FileName))
                     {
-                        var line = reader.ReadLine();
-                        var data = line.Split(';');
-                        var dto = client.MaterielGetById(int.Parse(data[0]));
-                        if (dto == null)
+                        while (!reader.EndOfStream)
                         {
-                            throw new Exception("Vous avez essayé de rajouter un matériel inexistant dans un véhicule");
-                        }
-                        else
-                        {
-                            dto.Stock = "Véhicule";
-                            dto.Id_vehicule = id;
-                            client.MaterielModifier(dto);
+                            var line = reader.ReadLine();
+                            var data = line.Split(';');
+                            var dto = client.MaterielGetById(int.Parse(data[0]));
+                            if (dto == null)
+                            {
+                                throw new Exception("Vous avez essayé de rajouter un matériel inexistant dans un véhicule");
+                            }
+                            else
+                            {
+                                dto.Stock = "Véhicule";
+                                dto.Id_vehicule = id;
+                                client.MaterielModifier(dto);
+                            }
                         }
                     }
                 }
-
             }
+            else { throw new Exception("Aucun véhicule sélectionné"); }
         }
         
 
@@ -189,7 +212,7 @@ namespace Projet_BICE.WPF
         {
             List<BICE.Client.Materiel_DTO> listeDTONonUtilise = new List<BICE.Client.Materiel_DTO> { };
             List<BICE.Client.Materiel_DTO> listeDTOUtilise = new List<BICE.Client.Materiel_DTO> { };
-            TextBox idVehicule = FindName("retourId") as TextBox;
+            int idVehicule;
             Microsoft.Win32.OpenFileDialog pasUtilise = new Microsoft.Win32.OpenFileDialog();
             Microsoft.Win32.OpenFileDialog utilise = new Microsoft.Win32.OpenFileDialog();
             bool? result = pasUtilise.ShowDialog();
@@ -231,43 +254,50 @@ namespace Projet_BICE.WPF
                 client.MaterielAjoutUtilisation(dto);
             }
             //Gestion des matériels perdus
-            var id = int.Parse(idVehicule.Text);
-            var listeMateriel = client.MaterielGetAll();
-            var listeDansLeVehicule = listeMateriel.Where(m=> m.Id_vehicule==id).ToList();
-            var nbRetour = listeDansLeVehicule.Count();
-            var nbParti = listeDTONonUtilise.Count() + listeDTOUtilise.Count();
-            if (nbRetour == nbParti)
+            if (!string.IsNullOrEmpty(SelectedOptionRetour))
             {
-                //retourner quelque chose de vide
-            }
-            else
-            {
-                List<BICE.Client.Materiel_DTO> fusion = listeDTOUtilise.Concat(listeDTONonUtilise).ToList();
-                int cpt = 0;
-                List<BICE.Client.Materiel_DTO> differences = new List<BICE.Client.Materiel_DTO>();
-                foreach (var materiel in listeDansLeVehicule)
+                char SelectedOptionId = SelectedOptionRetour[SelectedOptionRetour.Length - 1];
+                string SelectedOptionIdString = SelectedOptionId.ToString();
+                idVehicule = Convert.ToInt32(SelectedOptionIdString);
+                var id = idVehicule;
+                var listeMateriel = client.MaterielGetAll();
+                var listeDansLeVehicule = listeMateriel.Where(m => m.Id_vehicule == id).ToList();
+                var nbRetour = listeDansLeVehicule.Count();
+                var nbParti = listeDTONonUtilise.Count() + listeDTOUtilise.Count();
+                if (nbRetour == nbParti)
                 {
-                    cpt = 0;
-                    foreach(var materielRetour in fusion)
+                    //retourner quelque chose de vide
+                }
+                else
+                {
+                    List<BICE.Client.Materiel_DTO> fusion = listeDTOUtilise.Concat(listeDTONonUtilise).ToList();
+                    int cpt = 0;
+                    List<BICE.Client.Materiel_DTO> differences = new List<BICE.Client.Materiel_DTO>();
+                    foreach (var materiel in listeDansLeVehicule)
                     {
-                        if(materiel.Id == materielRetour.Id)
+                        cpt = 0;
+                        foreach (var materielRetour in fusion)
                         {
-                            cpt++;
-                        }
+                            if (materiel.Id == materielRetour.Id)
+                            {
+                                cpt++;
+                            }
 
+                        }
+                        if (cpt == 0)
+                        {
+                            differences.Add(materiel);
+                        }
                     }
-                    if (cpt == 0) 
+                    foreach (var item in differences)
                     {
-                        differences.Add(materiel);
+                        item.Stock = "Perdu";
+                        item.EstStocke = false;
+                        client.MaterielModifier(item);
                     }
-                }
-                foreach(var item in differences)
-                {
-                    item.Stock = "Perdu";
-                    item.EstStocke = false;
-                    client.MaterielModifier(item);
                 }
             }
+            else { throw new Exception("Aucun véhicule sélectionné"); }
             //Ajout de l'intervention
             TextBox denom = FindName("ajoutDénominationInter") as TextBox;
             TextBox description = FindName("ajoutDescription") as TextBox;
@@ -402,6 +432,5 @@ namespace Projet_BICE.WPF
 
             streamWriter.Close();
         }
-
     }
 }
