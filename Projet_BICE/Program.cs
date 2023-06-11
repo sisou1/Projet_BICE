@@ -11,6 +11,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<GestionMateriel_SRV>(new GestionMateriel_SRV());
 builder.Services.AddSingleton<GestionVehicule_SRV>(new GestionVehicule_SRV());
 builder.Services.AddSingleton<GestionIntervention_SRV>(new GestionIntervention_SRV());
+builder.Services.AddSingleton<GestionMateriel_VI_SRV>(new GestionMateriel_VI_SRV());
+builder.Services.AddSingleton<GestionVIntervention_SRV>(new GestionVIntervention_SRV());
 
 var app = builder.Build();
 
