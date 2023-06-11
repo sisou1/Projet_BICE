@@ -18,7 +18,7 @@ namespace BICE.SRV
         public GestionVIntervention_SRV() : this(new VIntervention_Depot_DAL()) { }
         public IEnumerable<VIntervention_DTO> GetAllById(int id)
         {
-            return depot_vIntervention.GetAll().Select(vIntervention_DAL => new VIntervention_DTO()
+            return depot_vIntervention.GetAllById(id).Select(vIntervention_DAL => new VIntervention_DTO()
             {
                 Id = vIntervention_DAL.Id,
                 Id_Vehicule = vIntervention_DAL.Id_Vehicule,
