@@ -22,12 +22,12 @@ namespace BICE.DAL
         public override IEnumerable<Materiel_VI_DAL> GetAllById(int id)
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"SELECT [id]
-                                      ,[id_vehicule]
-                                      ,[id_intervention]
+            Commande.CommandText = @"SELECT
+                                      [id_materiel]
+                                      ,[id_vehicule_intervention]
                                       ,[etat]
                                     FROM [dbo].[materiel_vehiculeIntervention]
-                                    WHERE id_vehicule_intervention = id";
+                                    WHERE id_vehicule_intervention = @id";
 
             Commande.Parameters.Add(new SqlParameter("@id", id));
 
@@ -55,8 +55,8 @@ namespace BICE.DAL
         public override Materiel_VI_DAL Insert(Materiel_VI_DAL p)
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"INSERT INTO vehicule_intervention (id_materiel, id_vehicule_intervention, etat) " +
-                   "VALUES (@id_materiel, @id_vehicule_intervention, @etat); ";
+            Commande.CommandText = @"INSERT INTO materiel_vehiculeIntervention (id_materiel, id_vehicule_intervention, etat) " +
+                   "VALUES (@id_materiel, @id_vehicule_intervention, @etat);  ";
             Commande.Parameters.Add(new SqlParameter("@id_materiel", p.Id_Materiel));
             Commande.Parameters.Add(new SqlParameter("@id_vehicule_intervention", p.Id_VehiculeIntervention));
             Commande.Parameters.Add(new SqlParameter("@etat", p.Etat));
