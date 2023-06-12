@@ -17,12 +17,9 @@
         <TextBox x:Name="modifImmatriculation" VerticalAlignment="Top" Margin="203,142,497,0" Height="18" />
         <TextBox x:Name="modifNuméro" VerticalAlignment="Top" Margin="203,157,497,0" Height="18" />
         <TextBox x:Name="modifDénomination" VerticalAlignment="Top" Margin="203,177,497,0" Height="18" />
-        <ComboBox HorizontalAlignment="Left" Margin="203,196,0,0" VerticalAlignment="Top" Width="120" Name="modifVehiculeCible"/>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{Binding Name}" />
-            </StackPanel>
-            <TextBlock Text="Véhicule " VerticalAlignment="Top" Margin="153,196,-143,0" />
+        <TextBlock Text="Véhicule " VerticalAlignment="Top" Margin="153,196,-143,0" />
         <Button x:Name ="UploadButtonUpdateVehicule" Content="OK" HorizontalAlignment="Left" Margin="328,198,0,0" VerticalAlignment="Top" Click="UploadButton_UpdateVehicule_Click"/>
+
         <!--Ajout-->
         <TextBlock Text="Immatriculation " VerticalAlignment="Top" Margin="10,145,0,0" />
         <TextBlock Text="Véhicule " FontSize ="15" VerticalAlignment="Top" Margin="10,97,0,0" />
@@ -34,21 +31,19 @@
         <TextBox x:Name="ajoutDénomination" VerticalAlignment="Top" Margin="103,177,597,0" Height="18" />
         <Button x:Name ="UploadButtonVehicule" Content="OK" HorizontalAlignment="Left" Margin="103,194,0,0" VerticalAlignment="Top" Click="UploadButton_AddVehicule_Click"/>
         <!--Suppression-->
-        <TextBlock Text="Supprimer " FontWeight ="DemiBold" VerticalAlignment="Top" Margin="10,205,0,0" />
-        <TextBox x:Name="supprId" VerticalAlignment="Top" Margin="103,224,597,0" Height="18" />
-        <TextBlock Text="Id " VerticalAlignment="Top" Margin="10,226,0,0" />
-        <Button x:Name ="UploadButtonVehiculeDel" Content="OK" HorizontalAlignment="Left" Margin="211,223,0,0" VerticalAlignment="Top" Click="UploadButton_DelVehicule_Click"/>
+        <TextBlock Text="Supprimer " FontWeight ="DemiBold" VerticalAlignment="Top" Margin="0,221,10,0" />
+        <TextBox x:Name="supprId" VerticalAlignment="Top" Margin="103,240,597,0" Height="18" />
+        <TextBlock Text="Id " VerticalAlignment="Top" Margin="10,242,0,0" />
+        <Button x:Name ="UploadButtonVehiculeDel" Content="OK" HorizontalAlignment="Left" Margin="208,240,0,0" VerticalAlignment="Top" Click="UploadButton_DelVehicule_Click"/>
         <!--Stock Vehicule-->
-        <TextBlock Text="Id " VerticalAlignment="Top" Margin="490,207,-480,0" />
-        <TextBlock Text="Stock Véhicule " FontSize ="15" VerticalAlignment="Top" Margin="477,182,-467,0" />
-        <TextBox x:Name="stockId" VerticalAlignment="Top" Margin="517,206,183,0" Height="18" RenderTransformOrigin="0.115,0.53" />
-        <Button x:Name ="UploadButtonStock" Content="Upload" HorizontalAlignment="Left" Margin="636,203,0,0" VerticalAlignment="Top" Click="UploadButton_AddStockV_Click"/>
+        <TextBlock Text="Véhicule" VerticalAlignment="Top" Margin="460,242,-450,0" />
+        <TextBlock Text="Stock Véhicule " FontSize ="15" VerticalAlignment="Top" Margin="460,215,-450,0" />
+        <Button x:Name ="UploadButtonStock" Content="Upload" HorizontalAlignment="Left" Margin="657,240,0,0" VerticalAlignment="Top" Click="UploadButton_AddStockV_Click"/>
         <!--Retour d'intervention-->
         <TextBlock Text="Retour d'intervention" FontSize ="15" VerticalAlignment="Top" Margin="477,97,-467,0" />
-        <TextBlock Text="Id du véhicule " VerticalAlignment="Top" Margin="490,123,-480,0" />
+        <TextBlock Text="Véhicule " VerticalAlignment="Top" Margin="490,123,-480,0" />
         <TextBlock Text="Dénomination " VerticalAlignment="Top" Margin="490,139,-480,0" />
         <TextBlock Text="Description" VerticalAlignment="Top" Margin="490,155,-480,0" />
-        <TextBox x:Name="retourId" VerticalAlignment="Top" Margin="567,121,133,0" Height="18" RenderTransformOrigin="0.963,0.478" />
         <TextBlock Text="1 : Pas Utilisé 2: Utilisé " FontSize="6" VerticalAlignment="Top" Margin="700,138,-690,0" />
         <Button x:Name ="OK" Content="Ajout de CSV" HorizontalAlignment="Left" Margin="693,120,0,0" VerticalAlignment="Top" Click="UploadButton_RetourIntervention"/>
         <TextBox x:Name="ajoutDescription" VerticalAlignment="Top" Margin="567,157,133,0" Height="18" />
@@ -69,6 +64,9 @@
         <TextBox x:Name="directory2" VerticalAlignment="Top" Margin="517,297,183,0" Height="18" />
         <TextBlock Text="Emplacement" VerticalAlignment="Top" Margin="426,298,-416,0" />
         <Button x:Name ="Liste_Matériels_Finito" Content="Télécharger" HorizontalAlignment="Left" Margin="625,296,0,0" VerticalAlignment="Top" Click="ExportListeMaterielJeter" RenderTransformOrigin="0.35,-4.081"/>
+        <ComboBox Margin="203,195,477,205" ItemsSource="{Binding Options}" SelectedItem="{Binding SelectedOption}" Name="VehiculeModifierCible" />
+        <ComboBox Margin="511,235,148,157" ItemsSource="{Binding Options}" SelectedItem="{Binding SelectedOptionStock}" Name="VehiculeStockCible"/>
+        <ComboBox Margin="554,115,105,277" ItemsSource="{Binding Options}" SelectedItem="{Binding SelectedOptionRetour}" Name="VehiculeRetourCible"/>
 
     </Grid>
 </Window>
