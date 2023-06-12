@@ -15,11 +15,6 @@ builder.Services.AddSingleton<GestionIntervention_SRV>(new GestionIntervention_S
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
 app.UseHttpsRedirection();
 
