@@ -46,7 +46,7 @@ namespace BICE.DAL
                                       ,[id_vehicule]
                                       ,[id_intervention]
                                     FROM [dbo].[vehicule_intervention]
-                                    WHERE id_intervention = id";
+                                    WHERE id_intervention = @id";
 
             Commande.Parameters.Add(new SqlParameter("@id", id));
 

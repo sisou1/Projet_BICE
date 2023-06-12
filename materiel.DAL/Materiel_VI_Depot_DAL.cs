@@ -60,7 +60,7 @@ namespace BICE.DAL
             Commande.Parameters.Add(new SqlParameter("@id_materiel", p.Id_Materiel));
             Commande.Parameters.Add(new SqlParameter("@id_vehicule_intervention", p.Id_VehiculeIntervention));
             Commande.Parameters.Add(new SqlParameter("@etat", p.Etat));
-
+            Commande.ExecuteNonQuery();
             FermerEtDisposerLaConnexionEtLaCommande();
 
             return p;
