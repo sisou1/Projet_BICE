@@ -12,6 +12,8 @@ namespace BICE.DTO
         public string Denomination { get; set; }
         public DateTime Date { get; set; }
         public string Description { get; set; }
+        public int? Id_categorie { get; set; }
+        public string? Lib_categorie { get; set; }
         
     }
 }

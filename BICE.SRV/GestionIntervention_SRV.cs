@@ -22,7 +22,8 @@ namespace BICE.SRV
                 intervention.Id,
                 intervention.Date,
                 intervention.Denomination,
-                intervention.Description
+                intervention.Description,
+                intervention.Id_categorie
                 );
             depot_intervention.Insert(intervention_dal);
 
@@ -37,6 +38,8 @@ namespace BICE.SRV
                 Date = intervention_DAL.Date,
                 Denomination = intervention_DAL.Denomination,
                 Description = intervention_DAL.Description,
+                Id_categorie = intervention_DAL.Id_categorie,
+                Lib_categorie = intervention_DAL.Lib_categorie,
             });
         }
         public Intervention_DTO? GetById(int id)
@@ -50,6 +53,7 @@ namespace BICE.SRV
                 Date = intervention_DAL.Date,
                 Denomination = intervention_DAL.Denomination,
                 Description = intervention_DAL.Description,
+                Id_categorie = intervention_DAL.Id_categorie,
             };
         }
     }

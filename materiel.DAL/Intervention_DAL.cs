@@ -13,14 +13,17 @@ namespace BICE.DAL
         public string Denomination { get; set; }
 
         public string? Description { get; set; }
+        public int? Id_categorie { get; set; }
+        public string? Lib_categorie { get; set; }
 
-        public Intervention_DAL(int id, DateTime date, string denomination, string description)
+        public Intervention_DAL(int id, DateTime date, string denomination, string description, int? id_categorie, string? lib_categorie)
         {
             Id = id;
             Date = date;
             Denomination = denomination;
             Description = description;
-            
+            Id_categorie = id_categorie;
+            Lib_categorie = lib_categorie;
         }
     }
 }

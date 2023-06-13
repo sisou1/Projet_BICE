@@ -28,13 +28,15 @@ namespace BICE.DAL
             Commande.CommandText = @"UPDATE [dbo].[Intervention]([denomination] = @denomination
            ,[date] = @date
            ,[description] = @description
+           ,[id_categorie] = @id_categorie
      WHERE
            (id = @id);
 ";
             Commande.Parameters.Add(new SqlParameter("@id", p.Id));
-            Commande.Parameters.Add(new SqlParameter("@description", p.Denomination));
+            Commande.Parameters.Add(new SqlParameter("@denomination", p.Denomination));
             Commande.Parameters.Add(new SqlParameter("@date", p.Date));
-            Commande.Parameters.Add(new SqlParameter("@id_forme", p.Description));
+            Commande.Parameters.Add(new SqlParameter("@description", p.Description));
+            Commande.Parameters.Add(new SqlParameter("@id_categorie", p.Id_categorie));
 
             Commande.ExecuteNonQuery();
 
@@ -61,7 +63,8 @@ namespace BICE.DAL
                     reader.GetInt32(0), //id
                     reader.GetDateTime(1), //Date
                     reader.GetString(2), //Denomination
-                    reader.GetSqlString(3).IsNull ? null : reader.GetString(3)); //Description
+                    reader.GetSqlString(3).IsNull ? null : reader.GetString(3), //Description
+                    reader[4] == DBNull.Value ? null : reader.GetInt32(4)); //id_categorie
             }
 
             FermerEtDisposerLaConnexionEtLaCommande();
@@ -70,12 +73,13 @@ namespace BICE.DAL
         public override Intervention_DAL Insert(Intervention_DAL p)
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"INSERT INTO Intervention (date, denomination, description) " +
-                   "VALUES (@date, @denomination, @description); " +
+            Commande.CommandText = @"INSERT INTO Intervention (date, denomination, description, id_categorie) " +
+                   "VALUES (@date, @denomination, @description, @id_categorie); " +
                    "SELECT SCOPE_IDENTITY()";
             Commande.Parameters.Add(new SqlParameter("@date", p.Date));
             Commande.Parameters.Add(new SqlParameter("@denomination", p.Denomination));
             Commande.Parameters.Add(new SqlParameter("@description", p.Description));
+            Commande.Parameters.Add(new SqlParameter("@id_categorie", p.Id_categorie));
 
             p.Id = Convert.ToInt32((decimal)Commande.ExecuteScalar());
             FermerEtDisposerLaConnexionEtLaCommande();
@@ -93,7 +97,7 @@ namespace BICE.DAL
         public override IEnumerable<Intervention_DAL> GetAll()
         {
             InitialiserLaConnexionEtLaCommande();
-            Commande.CommandText = @"SELECT * FROM [dbo].[intervention] ORDER BY date DESC";
+            Commande.CommandText = @"SELECT * FROM [dbo].[intervention] JOIN categorie As c On c.id=id_categorie";
 
             var reader = Commande.ExecuteReader();
 
@@ -106,7 +110,9 @@ namespace BICE.DAL
                     reader.GetInt32(0), //id
                     reader.GetDateTime(1), //Date
                     reader.GetString(2), //Denomination
-                    reader.GetSqlString(3).IsNull ? null : reader.GetString(3))); //Description
+                    reader.GetSqlString(3).IsNull ? null : reader.GetString(3), //Description
+                    reader[4] == DBNull.Value ? null : reader.GetInt32(4), //id_categorie
+                    reader[6] == DBNull.Value ? null : reader.GetString(6))); //lib_categorie
             }
             FermerEtDisposerLaConnexionEtLaCommande();
             return liste;
